@@ -22,12 +22,27 @@ public class TestCalc {
 	{
 		//Arrange
 		Calculator calc = new Calculator();
-		String input = "-1+2/(√16-2)*√4--2+100-8%3"; 
+		String input = "-1+2/(√16-2)*√4--2+10^2-8%3"; 
 		//Act
 		String actual = calc.calculateExpression(input);
 		
 		//Assert
 		assertEquals("101.0", actual);	
+	}
+	
+	
+	
+	@Test
+	public void plusNegativeBracketValue_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "4+(1-2)";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("3.0", actual);	
 	}
 	
 	@Test
@@ -42,6 +57,21 @@ public class TestCalc {
 		//Assert
 		assertEquals("2.0", actual);	
 	}
+	
+	@Test
+	public void minusInFrontOfBracket_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "3-(1+1)";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("1.0", actual);	
+	}
+	
+	
 	
 	@Test
 	public void minusFirstOrLast_test2() 
