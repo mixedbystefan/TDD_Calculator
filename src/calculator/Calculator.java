@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.annotation.processing.RoundEnvironment;
 import javax.management.RuntimeErrorException;
+import javax.xml.bind.ParseConversionEvent;
 
 import org.junit.internal.builders.IgnoredBuilder;
 import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
@@ -26,24 +28,38 @@ public class Calculator {
 	
 	{	
 		System.out.println("Miniräknaren");	
-		while (1==1) {
+		String loop = "calc";
+		while (loop.equalsIgnoreCase("calc")) 
+		{
 		
 		System.out.print(">");	
 		Scanner scanner =new Scanner(System.in);
 		String input = scanner.nextLine();
-		Calculator calculator = new Calculator();
-		String output = calculator.calculateExpression(input);
-		System.out.println("Resultat: " + output);
+		
+		if(input.equalsIgnoreCase("q")) 
+		{
+			loop="quit";
+			System.exit(0);
+		}
+		else 
+		{
+			Calculator calculator = new Calculator();
+			String output = calculator.calculateExpression(input);
+			
+			// Resultatet skrivs ut och en double med .0 visas utan decimaler
+			System.out.println("Resultat: " + round(output));}
 		}
 
 	}
 	
-	
+	// Metod som egentligen bara sköter paranteserna men som anropar "huvudmetoden" och bygger 
+	// en ny sträng när paranteserna är utträknade. Returnerar också svaret.
 	
 	public String calculateExpression(String s)
 	
 	{            
         check = new Calculator();
+        
         
         checkForBracketsWithinBrackets(s);
         
@@ -55,10 +71,10 @@ public class Calculator {
             {
                 try
                 {     //                                                
-                    if((s.charAt(o)==')' || Character.isDigit(s.charAt(o))) // om o är ) eller siffra SAMT parantesen efter är (
-                            && s.charAt(o+1)=='(')
+                    if((s.charAt(o)==')' || Character.isDigit(s.charAt(o))) // Kollar om parentesen kan räknas ut och ersättas av *
+                            && s.charAt(o+1)=='(')							// Beroende på index bredvid
                     {                         
-                        s=s.substring(0,o+1)+"*"+(s.substring(o+1));        
+                        s=s.substring(0,o+1)+"*"+(s.substring(o+1));         
                     }                                                      
                 }
                 
@@ -70,17 +86,18 @@ public class Calculator {
                     for(int i=o; i>=0;i--)
                     
                     {
-                        if(s.charAt(i)=='(')
+                        if(s.charAt(i)=='(')        // Skickar in det som ligger mellan parentserna i uträkningsmetoden
                         {                          
                             String in = s.substring(i+1,o);
                             in = check.doMath(in);   
-                            s=s.substring(0,i)+in+s.substring(o+1);
+                            s=s.substring(0,i)+in+s.substring(o+1); // Gör en ny sträng utifrån inputsträngen och uträknad parentes
                             i=o=0;
                         }
                     }
                 }
             }
-            // 
+            // Kollar så det inte finns parenteser som inte har någon motsvarande parantes
+            
             if(s.contains(Character.toString('('))||s.contains(Character.toString(')'))||
                     s.contains(Character.toString('('))||s.contains(Character.toString(')')))
             
@@ -93,18 +110,20 @@ public class Calculator {
         
         
         s=check.doMath(s);
+       
         return s;
     }
 	
 
 	
-	// Huvudmetod so tar in det som matas in i miniräknaren som en sträng
-	// anropar en metod beroende på input och returnerar en summa
+	// Huvudmetod som anropar metoder för beräkningar
+	// anropar en metod beroende på input och returnerar en summa till calculateExpression()
+	// For-loopar går igenom den Lista som skapas från inputsträngen och går igenom alla räknesätt
+	// I den ordning de är prioriterade. Beräkningar som är gjorda skriver över det som räknats ut med summan 
+	// och mellan varje räknesätt så tas alla raderade(tomma) index bort.
+	// En variabeln för minne (mem och mem_2) används för att direkt kunna plocka in resultatet av
+	// tidigare uträkning under pågående for-loop. 
 	
-	
-	
-
-
 
 	public String doMath(String expression) {
 	
@@ -122,7 +141,7 @@ public class Calculator {
 		// Delar upp input i en lista
 		String temp[] = expression.split(regex);
 		
-		// Kollar så att input inte innehåller bokstäver
+		// Kollar så att input inte innehåller bokstäver mm
 		
 		validateInput(temp);
 		
@@ -188,6 +207,7 @@ public class Calculator {
 			
 			}	
 			
+			// metod som tar bort tomma index
 			temp = refreshList(temp);
 			
 		for (int i=0; i<temp.length; i++)
@@ -197,7 +217,7 @@ public class Calculator {
 			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
 			
 			
-			
+			// Om indexet håller + eller - så nollställs minnet
 			if (temp[i].equals(("+"))|| temp[i].equals(("-")))
 			{mem=0.0;}
 			
@@ -207,18 +227,11 @@ public class Calculator {
 			{
 				
 				double d1 = Double.parseDouble(temp[i-1]);
-				
-				double d2 = 0;;
-				try 
-				{
-					d2 = Double.parseDouble(temp[i+1]);
-					
-					
-				} 
+				double d2 = 0;
 				
 				// Om ett tal ser ut som 4*-2 så skickas talet efter "-" in i metoden som ett negativt tal
-				catch (Exception Ignored){d2 = -(Double.parseDouble(temp[i+2]));}
-					 
+				if(isDouble(temp[i+1])) {d2 = Double.parseDouble(temp[i+1]);}
+				else d2 = -(Double.parseDouble(temp[i+2]));
 				
 				
 				if (temp[i].equals(("*"))) 
@@ -288,21 +301,16 @@ public class Calculator {
 			}
 			
 			
-			
-			
-			
-			
-			
 		}
 		
+		// metod som tar bort tomma index
 		temp = refreshList(temp);
 		memoryInUse=false;
 		
+		// For loop som går igenom + och -
 		
 		for (int i=0; i<temp.length; i++)
 		{ 
-			if(temp[0].equals("+")) {temp[0]=""; continue;}
-			if(temp[temp.length-1].equals("+")) {temp[temp.length-1]="";}
 		
 		if (temp[i].equals(("+"))|| temp[i].equals(("-")))
 		{
@@ -343,31 +351,49 @@ public class Calculator {
 		
 	}
 		
-		// Om det bara är en siffra retureneras den
+		// Om input från användare bara är en siffra så returneras denna som svar
 		else return expression;
+		
 		// Resultat returneras
+		
 		String out = Double.toString(result);
 		return out;
 	
 	}
 	
-	// Korigerar strängen vid olika fall av inputs med + och - som skulle crascha programmet annars
+	// Om resultatet miniräknaren ger har en decimal men .0 så tas denna bort
+	private static String round(String result) 
+	{
+		if(isInteger(Double.parseDouble(result)))
+        {
+			result=Integer.toString(checkDoubleAsInt(Double.parseDouble(result)));
+        }
+		
+		return result;
+		
+	}
+	// Korigerar strängen vid olika fall av inputs som ska fungera men måste korrigeras för
+	// att inte crascha programmet
 	
-	private String adjustStackedOperands(String expression) {
+	
+	private String adjustStackedOperands(String expression) 
+	{
 		String plusMinusToMinus = expression.replace("+-", "-");
 		String ZeroTimesMinus = plusMinusToMinus.replace("0*-", "0*");
 		String MinusPlusToMinus = ZeroTimesMinus.replace("-+", "-");
 		String logTol = MinusPlusToMinus.replace("log", "l");
-		String multiplyBeforeRoot = logTol.replace("*√", "√");
+		String logTol_2 = logTol.replace("Log", "l");
+		String logTol_3 = logTol_2.replace("LOG", "l");
+		String multiplyBeforeRoot = logTol_3.replace("*√", "√");
 		String twoMinusEqPlus =multiplyBeforeRoot.replace("--", "+");
 		
 		
-		
+		// Om första tecknet är - så läggs en nolla till innan
 		if (twoMinusEqPlus.substring(0, 1).equalsIgnoreCase("-")){
 			String updatedInput= "0" + twoMinusEqPlus;
 			twoMinusEqPlus = updatedInput;
 		}
-		
+		// Om första tecknet är * så skickas felmeddelande
 		if (expression.substring(0, 1).equalsIgnoreCase("*")|| expression.substring(0, 1).equalsIgnoreCase("/"))
 		{throw new ArrayIndexOutOfBoundsException("Första tecknet får inte vara * eller /!");}
 		
@@ -383,13 +409,15 @@ public class Calculator {
 		for (String i : temp) 
 		{
 			
-			
+			// Om två parenteser i rad är åt samma håll så kastas undantag
 			if (i.equals("(")) {x++;}
 			if (i.equals(")")) {x--;}
 			if (x>1) {throw new RuntimeErrorException(null, "Parantes inom Parentes är inte implementerad i miniräknaren");}
 			
 		}
 	}
+	
+	// Kontrollerar så inte bokstäver används samt att operander inte läggs efter varandra i otillåten ordning
 
 	private void validateInput(String[] temp) {
 		try 
@@ -399,7 +427,7 @@ public class Calculator {
       		isChar = o.matches("[a-öA-Ö]{1}");
       		if (isChar && !o.equals("^") && !o.equalsIgnoreCase("l")) 
       		{
-      			throw new RuntimeErrorException(null, "Inga bokstäver"); 
+      			throw new NumberFormatException("Inga bokstäver"); 
       		
       		}
       		
@@ -445,6 +473,29 @@ public class Calculator {
 	        return false;
 	    }
 	}
+	
+	private static boolean isInteger(double d){
+	    double dAbs = Math.abs(d);
+	    int i = (int) dAbs;
+	    double result = dAbs - (double) i;
+	    if(result<0.00001){
+	        return true;            
+	    }else{
+	        return false;          
+	    }
+	}
+	
+	private static int checkDoubleAsInt(double d){
+	    double dAbs = Math.abs(d);
+	    int i = (int) dAbs;
+	    double result = dAbs - (double) i;
+	    if(result<0.0001){
+	        return d<0 ? -i : i;            
+	    }else{
+	        return 998877665;          
+	    }
+	}
+
 
 	// Uppdaterar listan genom att ta bort tomma index
 	public String[] refreshList(String[] temp) {
@@ -460,6 +511,8 @@ public class Calculator {
 	}
 	
 	
+	
+	// Alla metoder för själva beräkningarna
 
 	//add
 	public double add(double d1, double d2) 
@@ -506,7 +559,7 @@ public class Calculator {
 	}
 
 	
-	// base 10 logarithm 10 -  log
+	// base 10 logarithm 10 -  skrivs som "log" eller "l"
 	
 	public double logarithm(double d1) 
 	{

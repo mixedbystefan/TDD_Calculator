@@ -154,6 +154,8 @@ public class TestCalc {
 		assertEquals("2.0", actual);	
 	}
 	
+	
+	
 	@Test
 	public void minusInFrontOfBracket_test() 
 	{
@@ -434,6 +436,21 @@ public class TestCalc {
 		Calculator calc = new Calculator();
 		// Act
 		double actual = calc.multiply(3, 3);
+		
+		//Assert
+		assertEquals(9d, actual, 0.111);
+		
+		
+	}
+	
+	@Test
+	public void Max_test() 
+	{
+	  
+		//Arrange
+		Calculator calc = new Calculator();
+		// Act
+		double actual = calc.multiply(Double.MAX_VALUE, 2);
 		
 		//Assert
 		assertEquals(9d, actual, 0.111);
