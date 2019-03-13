@@ -30,6 +30,102 @@ public class TestCalc {
 		assertEquals("101.0", actual);	
 	}
 	
+	@Test
+	public void allOperatorsAdvanced2_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "-1+2/(√16-2)*√4"; 
+		
+		
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("1.0", actual);	
+	}
+	
+	
+	
+	@Test
+	public void logInContext_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "10log100"; 
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("20.0", actual);	
+	}
+	
+
+	@Test
+	public void rootBeforeBracket_test_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "√(2*2)"; 
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("2.0", actual);	
+	}
+	
+	@Test
+	public void rootInContext_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "10√100"; 
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("100.0", actual);	
+	}
+	
+	@Test
+	public void onlyBrackets_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "4(2)"; 
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("8.0", actual);	
+	}
+	
+	@Test
+	public void onlyBracketsWithOneNegativeNumber_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "4*(-2)"; 
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("-8.0", actual);	
+	}
+	
+	@Test
+	public void ZeroMultiplyWithNegative_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "0*-3";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("0.0", actual);	
+	}
+
 	
 	
 	@Test
@@ -412,10 +508,10 @@ public class TestCalc {
 		//Arrange
 		Calculator calc = new Calculator();
 		// Acts
-		double actual = calc.logarithm(60984.1);
+		double actual = calc.logarithm(100);
 		
 		//Assert
-		assertEquals(11.018368453441132d, actual, 0.111);
+		assertEquals(2d, actual, 0.111);
 		
 		
 	}

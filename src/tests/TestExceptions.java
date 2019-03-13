@@ -2,6 +2,8 @@ package tests;
 
 
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -14,7 +16,7 @@ public class TestExceptions
 	//Arrange
 		Calculator calc = new Calculator();
 		
-	// Kollar error vid delat med 0
+	// Kollar error vid division med 0
 	@Test(expected = ArithmeticException.class)
 	public void dividedByZero_ExceptionThrown() 
 	{
@@ -26,28 +28,56 @@ public class TestExceptions
 		
 	}
 	
+	// Undantag ska kastas om första tecken är * eller /
+	@Test(expected = ArrayIndexOutOfBoundsException.class)
+	public void notALlowedSubstringZero_ExceptionThrown() 
+	{
+		//Arrange 
+		Calculator calculator = new Calculator();
+		//Act
+		 String actual = calc.calculateExpression("*5-1");
+		
+		
+	}
+	
+	// Undantag ska kastas om * eller / används flera gånger i rad
+		@Test(expected = NumberFormatException.class)
+		public void multipleOperandsInRow_ExceptionThrown() 
+		{
+			//Arrange 
+			Calculator calculator = new Calculator();
+			//Act
+			 String actual = calc.calculateExpression("5**5");
+			
+			
+		}
+	
+	
+	
+	
+	// Undantag ska kastas om antalet paranteser är ojämt
+	
 	@Rule
     public ExpectedException thrown= ExpectedException.none();
 
-    @Test
-    public void throwsNothing() {
-        // no exception expected, none thrown: passes.
-    }
-
-    @Test
-    public void throwsExceptionWithSpecificType() {
-        thrown.expect(NullPointerException.class);
-        calc.calculateExpression("(()");
-    }
     
     @Test
-    public void throwsExceptionWhoseMessageContainsSpecificText() {
+    public void throwsExceptionWhenBracketIsMissing() {
         thrown.expectMessage("Måste finnas öppnande och stängande parentes");
         String actual = calc.calculateExpression("+5-(");
         
     }
     
-    // Kollar om ett err-mess innehållande "Inga bokstäver" kastas
+
+    // Undantag ska kastas om användaren försöker annvända parenteser inom parenteser
+    @Test
+    public void throwsExceptionForUnimplementedBracketUse() {
+        thrown.expectMessage("Parantes inom Parentes är inte implementerad i miniräknaren");
+        String actual = calc.calculateExpression("(1(1*2))");
+        
+    }
+    
+    // Undantag ska kastats
     
     @Test
     public void throwsExceptionForUsingLetters() {

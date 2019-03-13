@@ -7,6 +7,9 @@ import java.util.Scanner;
 
 import javax.management.RuntimeErrorException;
 
+import org.junit.internal.builders.IgnoredBuilder;
+import org.omg.CosNaming.NamingContextExtPackage.AddressHelper;
+
 
 public class Calculator {
 	StringBuffer sBuffer;
@@ -24,6 +27,7 @@ public class Calculator {
 	{	
 		System.out.println("Miniräknaren");	
 		while (1==1) {
+		
 		System.out.print(">");	
 		Scanner scanner =new Scanner(System.in);
 		String input = scanner.nextLine();
@@ -31,9 +35,7 @@ public class Calculator {
 		String output = calculator.calculateExpression(input);
 		System.out.println("Resultat: " + output);
 		}
-		
-		
-		
+
 	}
 	
 	
@@ -43,6 +45,7 @@ public class Calculator {
 	{            
         check = new Calculator();
         
+        checkForBracketsWithinBrackets(s);
         
         while(s.contains(Character.toString('('))||s.contains(Character.toString(')')))
         
@@ -59,7 +62,7 @@ public class Calculator {
                     }                                                      
                 }
                 
-                catch (Exception ignored){System.out.println("Måste finnas öppnande och stängande parentes!");}   
+                catch (Exception ignored){/* Används bara för att programmet inte ska crascha om ifsatsens innehåll inte funkar*/}   
                 
                 if(s.charAt(o)==')')
                 
@@ -87,6 +90,8 @@ public class Calculator {
                 
             }
         }
+        
+        
         s=check.doMath(s);
         return s;
     }
@@ -96,12 +101,18 @@ public class Calculator {
 	// Huvudmetod so tar in det som matas in i miniräknaren som en sträng
 	// anropar en metod beroende på input och returnerar en summa
 	
+	
+	
+
+
+
 	public String doMath(String expression) {
 	
 		
 		double result = 0.0;
 		double mem = 0.0;
 		double mem_2 = 0.0;
+		
 		
 	
 		// Ersätter -- med + osv
@@ -113,7 +124,9 @@ public class Calculator {
 		
 		// Kollar så att input inte innehåller bokstäver
 		
-		checkInputForLetters(temp);
+		validateInput(temp);
+		
+		
 
 		if (temp.length >1) 
 		{
@@ -123,19 +136,30 @@ public class Calculator {
 			
 				
 				
-				if (temp[i].equalsIgnoreCase(("√"))) 
+				if (temp[i].equals(("√"))) 
 				{ 
+					// Kollar om strängen är double eller int
 					
-					int d = Integer.parseInt(temp[i+1]);
-					result = root(d);
-					temp[i]="";
+					if (isDouble(temp[i+1])) {result = root(Double.parseDouble(temp[i+1]));}
+					else Integer.parseInt(temp[i+1]);
+			
 					temp[i+1]=Double.toString(result);
 					mem=0.0;
 					
+					try {
+						if (temp[i-1].equals("*")) 
+						{
+							temp[i-1]="";	
+						}
+						else temp[i]="*";
+						
+					} catch (Exception ignored) {
+						temp[i]="";
+					}
 				
 				}
 				
-				if (temp[i].equalsIgnoreCase(("^"))) 
+				if (temp[i].equals(("^"))) 
 				{ 
 					
 					double d1 = Double.parseDouble(temp[i-1]);
@@ -143,6 +167,18 @@ public class Calculator {
 					result = exponent(d1, d2);
 					temp[i-1]="";
 					temp[i]="";
+					temp[i+1]=Double.toString(result);
+					mem=0.0;
+					
+				
+				}
+				
+				if (temp[i].equals(("l"))) 
+				{ 
+					
+					double d = Double.parseDouble(temp[i+1]);
+					result = logarithm(d);
+					temp[i]="*";
 					temp[i+1]=Double.toString(result);
 					mem=0.0;
 					
@@ -160,18 +196,32 @@ public class Calculator {
 			if(temp[0].equalsIgnoreCase("+")) {temp[0]=""; continue;}
 			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
 			
-			if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
+			
+			
+			if (temp[i].equals(("+"))|| temp[i].equals(("-")))
 			{mem=0.0;}
 			
 			
 			
-			if (temp[i].equalsIgnoreCase(("*"))|| temp[i].equalsIgnoreCase(("/"))|| temp[i].equalsIgnoreCase(("%")))
+			if (temp[i].equals(("*"))|| temp[i].equals(("/"))|| temp[i].equals(("%")))
 			{
 				
 				double d1 = Double.parseDouble(temp[i-1]);
-				double d2 = Double.parseDouble(temp[i+1]);
 				
-				if (temp[i].equalsIgnoreCase(("*"))) 
+				double d2 = 0;;
+				try 
+				{
+					d2 = Double.parseDouble(temp[i+1]);
+					
+					
+				} 
+				
+				// Om ett tal ser ut som 4*-2 så skickas talet efter "-" in i metoden som ett negativt tal
+				catch (Exception Ignored){d2 = -(Double.parseDouble(temp[i+2]));}
+					 
+				
+				
+				if (temp[i].equals(("*"))) 
 				{
 					if (mem==0.0) 
 						{
@@ -188,7 +238,7 @@ public class Calculator {
 						temp[i]="";
 						temp[i+1]=Double.toString(result);
 				}
-				if (temp[i].equalsIgnoreCase(("/"))) 
+				if (temp[i].equals(("/"))) 
 				{
 					
 					if (mem==0.0) 
@@ -207,12 +257,12 @@ public class Calculator {
 					temp[i+1]=Double.toString(result);
 				}
 				
-				if (temp[i].equalsIgnoreCase(("%"))) 
+				if (temp[i].equals(("%"))) 
 				{
 					int res;
 					if (mem==0.0) 
 						{
-						System.out.println("Hej");
+						
 						int _d1 = (int)d1;
 						int _d2 = (int)d2;
 						res = modulus(_d1, _d2);
@@ -222,7 +272,7 @@ public class Calculator {
 						}
 					else 
 					{
-						System.out.println("Svejs");
+						
 						int _d2 = (int)d2;
 						int _mem= (int) mem;
 						res = modulus(_mem, _d2);
@@ -251,17 +301,17 @@ public class Calculator {
 		
 		for (int i=0; i<temp.length; i++)
 		{ 
-			if(temp[0].equalsIgnoreCase("+")) {temp[0]=""; continue;}
-			if(temp[temp.length-1].equalsIgnoreCase("+")) {temp[temp.length-1]="";}
+			if(temp[0].equals("+")) {temp[0]=""; continue;}
+			if(temp[temp.length-1].equals("+")) {temp[temp.length-1]="";}
 		
-		if (temp[i].equalsIgnoreCase(("+"))|| temp[i].equalsIgnoreCase(("-")))
+		if (temp[i].equals(("+"))|| temp[i].equals(("-")))
 		{
 			double d1 = 0;
 			if (i==0) {continue;}
 			else {d1 = Double.parseDouble(temp[i-1]);}
 			double d2 = Double.parseDouble(temp[i+1]);
 			
-			if (temp[i].equalsIgnoreCase(("+"))) 
+			if (temp[i].equals(("+"))) 
 			{
 				if (mem_2==0.0 && memoryInUse==false) {
 					result = add(d1, d2); mem_2=result; memoryInUse=true;
@@ -272,7 +322,7 @@ public class Calculator {
 					}
 			}
 		
-			if (temp[i].equalsIgnoreCase(("-"))) 
+			if (temp[i].equals(("-"))) 
 			{
 				
 				if (mem_2==0.0 && memoryInUse==false) 
@@ -293,48 +343,110 @@ public class Calculator {
 		
 	}
 		
-		
-		
+		// Om det bara är en siffra retureneras den
+		else return expression;
+		// Resultat returneras
 		String out = Double.toString(result);
-		System.out.println("Detta är output från mainmetod : " + out);
 		return out;
 	
 	}
 	
+	// Korigerar strängen vid olika fall av inputs med + och - som skulle crascha programmet annars
+	
 	private String adjustStackedOperands(String expression) {
 		String plusMinusToMinus = expression.replace("+-", "-");
-		String MinusPlusToMinus = plusMinusToMinus.replace("-+", "-");
-		String twoMinusEqPlus = MinusPlusToMinus.replace("--", "+");
+		String ZeroTimesMinus = plusMinusToMinus.replace("0*-", "0*");
+		String MinusPlusToMinus = ZeroTimesMinus.replace("-+", "-");
+		String logTol = MinusPlusToMinus.replace("log", "l");
+		String multiplyBeforeRoot = logTol.replace("*√", "√");
+		String twoMinusEqPlus =multiplyBeforeRoot.replace("--", "+");
+		
+		
 		
 		if (twoMinusEqPlus.substring(0, 1).equalsIgnoreCase("-")){
 			String updatedInput= "0" + twoMinusEqPlus;
 			twoMinusEqPlus = updatedInput;
 		}
+		
+		if (expression.substring(0, 1).equalsIgnoreCase("*")|| expression.substring(0, 1).equalsIgnoreCase("/"))
+		{throw new ArrayIndexOutOfBoundsException("Första tecknet får inte vara * eller /!");}
+		
+		
+		
 		return twoMinusEqPlus;
 	}
 
+	private void checkForBracketsWithinBrackets(String s) 
+	{
+		String temp[] = s.split(regex);
+        int x =0;
+		for (String i : temp) 
+		{
+			
+			
+			if (i.equals("(")) {x++;}
+			if (i.equals(")")) {x--;}
+			if (x>1) {throw new RuntimeErrorException(null, "Parantes inom Parentes är inte implementerad i miniräknaren");}
+			
+		}
+	}
 
-
-	private void checkInputForLetters(String[] temp) {
+	private void validateInput(String[] temp) {
 		try 
 		{
-      	  for (String i : temp) 
+      	  for (String o : temp) 
       	  { 
-      		isChar = i.matches("[a-öA-Ö]{1}");
-      		if (isChar && !i.equals("^")) {throw new RuntimeErrorException(null, "Inga bokstäver"); }
+      		isChar = o.matches("[a-öA-Ö]{1}");
+      		if (isChar && !o.equals("^") && !o.equalsIgnoreCase("l")) 
+      		{
+      			throw new RuntimeErrorException(null, "Inga bokstäver"); 
+      		
+      		}
+      		
+      		for (int i=0; i<temp.length; i++)
+          	{
+          		if (temp[i].equals("*") && temp[i+1].equals("*")) 
+          		{
+          			throw new NumberFormatException("** = Otillåten kombination av operander");
+          		}
+          		if (temp[i].equals("/") && temp[i+1].equals("/")) 
+          		{
+          			throw new NumberFormatException("// = Otillåten kombination av operander");
+          		}
+          		if (temp[i].equals("*") && temp[i+1].equals("/"))
+          		{
+          			throw new NumberFormatException("*/ = Otillåten kombination av operander");
+          		}
+          		if (temp[i].equals("/") && temp[i+1].equals("*")) 
+          		{
+          			throw new NumberFormatException("/* = Otillåten kombination av operander");
+          		}
+          	}
       	  }
+      	  
+      	
+		
       	} 
 		
 		catch (InputMismatchException e) 
 		{
       	  e.printStackTrace();
-      	  System.err.println("Inga bokstäver");
+      	  System.err.println("Otillåten input");
       	}
 		
 	}
 
+	// Kollar om strängen är en double
+	public boolean isDouble(String value) {
+	    try {
+	        Double.parseDouble(value);
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
+	}
 
-
+	// Uppdaterar listan genom att ta bort tomma index
 	public String[] refreshList(String[] temp) {
 		StringBuffer sBuffer = new StringBuffer();
 
@@ -369,7 +481,7 @@ public class Calculator {
 	public double divide(double d1, double d2) 
 	
 	{
-		if (d2==0) {throw new ArithmeticException();}
+		if (d2==0) {throw new ArithmeticException("Du kan inte dela med 0!"); }
 		return d1 / d2;
 	}	
 	
@@ -394,15 +506,15 @@ public class Calculator {
 	}
 
 	
-	// logarithm log
+	// base 10 logarithm 10 -  log
 	
 	public double logarithm(double d1) 
 	{
-		return Math.log(d1);
+		return Math.log10(d1);
 	}
 	
-	//Math.log(60984.1)=11.018368453441132
-	//Math.log(-497.99)=NaN
+	
+	
 		
 
 	
