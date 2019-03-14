@@ -65,25 +65,44 @@ renderaNyLista() och skriv ut resultat
 
 Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller * kommer en for loop snurra tills varje operand av denna prioriten är ersatt med en summa.
 
-Operanden som motsvarar index i loopen omges i fallet multiplikation oftast av två siffror - uträkningen görs varpå den första siffran och operanden ersätts av tomma index "" och siffran på indexet ovanför ersätts med produkten från beräkningen.
-
 ```
 if (temp[i].equals(("*"))) 
 		{
-			if (mem==0.0) 
-				{
-				result = multiply(d1, d2); mem=result;	
-				}
-			else 
-				{
-				result = multiply(mem, d2); mem=result;		
-				}
-					
+				result = multiply(d1, d2); 	
+	
 				temp[i-1]="";
 				temp[i]="";
 				temp[i+1]=Double.toString(result);
 		 }
 ```
+
+Exempel på detta:
+
+
+``` 
+
+
+AnvändarInput> 3*2
+
+
+innan talet gått in i if-satsen
+
+[0]=”3”
+[1]=”*”
+[2]=”2”
+
+efter talet gått in i if-satsen
+
+[0]=””
+[1]=””
+[2]=”6”
+
+```
+
+
+Operanden som motsvarar index i loopen omges i fallet multiplikation oftast av två siffror - uträkningen görs varpå den första siffran och operanden ersätts av tomma index "" och siffran på indexet ovanför ersätts med produkten från beräkningen.
+
+
 
 
 En inmatning av 3*2+3/2 ser ut så här:
