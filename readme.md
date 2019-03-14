@@ -154,19 +154,10 @@ När allt annat fungerade så skrevs en metod för att hantera parenteser, efter
 I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av input-strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med "*" om tecknet innan eller efter är en siffra. Detta görs genom en if-sats.
 
 
-### Problem med detta tankesätt
-
-Det var e
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Tester
 
-Explain how to run the automated tests for this system
+Eftersom testerna ska ligga som grund för nästa steg i koden så gjordes först tester kring de fyra vanligaste räknesätten och sedan skrevs tester för uträkningar som kräver att ordningen uträkningarna sker är baserade på vilken prioritet operanden i fråga har. Målet var till en början att klara kravet för G på uppguften vilket gjorde att roten ur, modulus, exponent och logaritm gjordes efter att en rad tester kring de fyra räknesätten visade på grönt. I och med att dessa egentligen bara skiljde i prioritet och i vissa fall även i antal index de tar upp i listan var det inte särskilt svårt att implementera dessa i koden. Färre tester är av den anledningen gjorda på dessa. Sista gjordes tetser kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns samtidigt som testerna direkt visade om det var något som inte stämde kändes det inte som något som skulle kasta omkull hela grejen. Denna metod kunde alltså skrivas och testas separat från de andra och sedan kunde jag testa att låta allt passera metoden. 
 
 ### Break down into end to end tests
 
