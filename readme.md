@@ -157,54 +157,24 @@ I praktiken så undersöker metoden om det finns parenteser, om så är fallet s
 
 ## Tester
 
-Eftersom testerna ska ligga som grund för nästa steg i koden så gjordes först tester kring de fyra vanligaste räknesätten och sedan skrevs tester för uträkningar som kräver att ordningen uträkningarna sker är baserade på vilken prioritet operanden i fråga har. Målet var till en början att klara kravet för G på uppguften vilket gjorde att roten ur, modulus, exponent och logaritm gjordes efter att en rad tester kring de fyra räknesätten visade på grönt. I och med att dessa egentligen bara skiljde i prioritet och i vissa fall även i antal index de tar upp i listan var det inte särskilt svårt att implementera dessa i koden. Färre tester är av den anledningen gjorda på dessa. Sista gjordes tetser kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns samtidigt som testerna direkt visade om det var något som inte stämde kändes det inte som något som skulle kasta omkull hela grejen. Denna metod kunde alltså skrivas och testas separat från de andra och sedan kunde jag testa att låta allt passera metoden. 
+Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt födelen med TDD, jag ville snabbt skulle komma igång med miniräknaren då det kändes som väldigt svårt, testerna kändes som något som mest skulle vara ivägen. 
 
-### Break down into end to end tests
+Snabbt blev det tydligt att det var otroligt använbart att ha en rad tester som kan köras för att bygga koden och säkerhetsställa redan befintlig funktionalitet. Det övergick ganska snabbt i att testerna var helt nödvändiga, väldigt intressant process för mig.J
 
-Explain what these tests test and why
+Tester kring de fyra vanligaste räknesätten (och implementationen i koden) gjordes först. Sedan försökte jag lösa ordningen genom att testa mig fram utan att använda testklassen, .
 
-```
-Give an example
-```
+Målet var till en början att klara kravet för G på uppgiften vilket gjorde att roten ur, modulus, exponent och logaritm gjordes ganska sent i processen.
 
-### And coding style tests
+I och med att dessa egentligen bara skiljde i prioritet var det inte särskilt svårt att implementera dessa i koden. 
 
-Explain what these tests test and why
+Sista gjordes tetser kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
 
-```
-Give an example
-```
 
-## Deployment
 
-Add additional notes about how to deploy this on a live system
+## Versionshantering
 
-## Built With
+Git har använts men GitHub kom in vid ett senare tillfälle på denna version av appen, jag hade en tidigare version där jag arbetade mot GitHub men hade en krasch i kombination med att jag gick över till MAven. JAg lessnade och skapade ett nytt projekt med samma kod och arbetade lokalt några dagar. Det är denna version jag nu har på GitHub.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+## Slutligen
 
-## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
