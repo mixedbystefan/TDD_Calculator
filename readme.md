@@ -229,7 +229,7 @@ I praktiken så undersöker metoden om det finns parenteser, om så är fallet s
 
 Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet.  Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i mainmetoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.ä
 
-## Versionshantering
+## Versionshanteringg
 
 Git har använts lokalt sedan start, vid ett tillfälle hade jag en crash när jag gick över till Maven, då gjorde jag ett nytt projekt för att det var så mycket problem. Av den anledningen så har går inte historiken så långt tillbaka och denna version är den jag publicerat på GitHub. 
 
@@ -237,4 +237,9 @@ Jag tycker också egentligen att dokumentationer både ser bättre ut och går s
 
 ## Slutligen
 
+För mig har denna uppgift varit väldigt givande, dels för att jag inte trodde jag skulle klara att göra miniräknaren men också för att testerna visade sig väldigt användbara. 
+
+Jag inser förstås att mitt sätt att skriva koden säkert är väldgt DIY och förmodligen inte den mest kompakta/smartaste. 
+
+Samtidigt är det just detta som gör det extra givande - att det faktiskt går att tänkta ut något som för mig är ganska avancerat - att "fiffla" sig till en fungerande app med hjälp av TDD.
 
