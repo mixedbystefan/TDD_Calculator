@@ -67,12 +67,13 @@ Multiplikation och division har samma prio och kan därför räknas ut tillsamma
 
 ```
 if (temp[i].equals(("*"))) 
+
 		{
-				result = multiply(d1, d2); 	
+			result = multiply(d1, d2); 	
 	
-				temp[i-1]="";
-				temp[i]="";
-				temp[i+1]=Double.toString(result);
+			temp[i-1]="";
+			temp[i]="";
+			temp[i+1]=Double.toString(result);
 		 }
 ```
 
@@ -80,8 +81,6 @@ Exempel på detta:
 
 
 ``` 
-
-
 AnvändarInput> 3*2
 
 
