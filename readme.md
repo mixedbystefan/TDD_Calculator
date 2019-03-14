@@ -8,13 +8,13 @@ Här används Eclipse med JUnit4
 
 ### Funktioner
 
-Miniräknaren tar in en sträng från användaren och returnerar ett svar som skrivs ut på konsollen. Input valideras och om exempelvis bokstäver (med untantag "l" som i log) skrivs kommer ett felmddelande att tala om detta.
+Miniräknaren tar in en sträng från användaren och returnerar ett svar som skrivs ut på konsollen. Input valideras och om exempelvis bokstäver skrivs kommer ett felmeddelande att tala om detta.
 
 
  
 
 ```
-Miniräknarens funktioner
+Klarar av:
 
 + addition 
 - subtraktion
@@ -23,10 +23,12 @@ Miniräknarens funktioner
 % modulus 
 √ rot
 ^ exponent 
-l bas 10 logarithm (även "log" fungerar)
+l logarithm (bas10) även "log" kan skrivas
 () Parenteser
 
-Klarar inte av parenteser inom parenteser.
+Klarar inte av:
+
+parenteser inom parenteser.
 
 ```
 
