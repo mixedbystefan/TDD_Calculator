@@ -204,10 +204,30 @@ if (temp[i].equals(("√")))
 				
 }
 ```
+
+JAg har också försökt att inte göra massa test som inte testar funtionalitet som redan är testad, mot slutet så kunde jag inte motså att göra ett längre tal bara för att det ser komplicerat ut. Det fick grönt vilket borde betyda att jag varit ganska noga med testerna fram till detta.
+
+```
+@Test
+	public void allOperatorsAdvanced_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "-1+2/(√16-2)*√4--2+10^2-8%3"; 
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("101.0", actual);	
+	}
+```
 Sista gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
 
 I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
 
+## Avrundning
+
+Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet.  Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i mainmetoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.ä
 
 ## Versionshantering
 
