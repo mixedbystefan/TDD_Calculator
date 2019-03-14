@@ -155,26 +155,57 @@ I praktiken så undersöker metoden om det finns parenteser, om så är fallet s
 
 
 
-## Tester
+## Tankar kring testerna
 
 Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt födelen med TDD, jag ville snabbt skulle komma igång med miniräknaren då det kändes som väldigt svårt, testerna kändes som något som mest skulle vara ivägen. 
 
-Snabbt blev det tydligt att det var otroligt använbart att ha en rad tester som kan köras för att bygga koden och säkerhetsställa redan befintlig funktionalitet. Det övergick ganska snabbt i att testerna var helt nödvändiga, väldigt intressant process för mig.J
+Snabbt blev det tydligt att det var otroligt använbart att ha en rad tester som kan köras. Int före bara att bygga koden utan även för att ständigt kontrollera at befintlig kod fungerar. Det övergick ganska snabbt i att testerna var helt nödvändiga, väldigt intressant process för mig.
 
-Tester kring de fyra vanligaste räknesätten (och implementationen i koden) gjordes först. Sedan försökte jag lösa ordningen genom att testa mig fram utan att använda testklassen, .
+Enda gången jag egentligen frångick att utgå från testerna var mot slutet då jag försökte provocera fram fel, då gick det snabbare att köra programmet och skriva "dumma" tal. Sedan kunde tester på de som crashade göras och fixas.
 
-Målet var till en början att klara kravet för G på uppgiften vilket gjorde att roten ur, modulus, exponent och logaritm gjordes ganska sent i processen.
+Jag antar att det är ungefär så det fungerar i verkligheten, att man inte låser sig till att utgå från testerna men att det helt enkelt är väldigt användbart så att man automatiskt förlitar sig på dom.
 
-I och med att dessa egentligen bara skiljde i prioritet var det inte särskilt svårt att implementera dessa i koden. 
+Det som egentligen tog mest tid vara att testa kombinationer som kanske inte är helt vanliga och som inte förhåller sig till det vanliga - siffra operand siffra
 
+Exempelvis 2*(-√4) har en rad operander mellan siffrorna och därför måste varje fall lösas. 
+
+Ex.
+
+```
+if (temp[i].equals(("√"))) 
+				{ 
+
+					result = root(Double.parseDouble(temp[i+1]));
+
+					temp[i+1]=Double.toString(result);
+					mem=0.0;
+					
+					try {
+						if (temp[i-1].equals("*")) 
+						{
+							temp[i-1]="";	
+						}
+						if (temp[i-1].equals("-")) 
+						{
+							temp[i]="-";
+							temp[i-1]="";
+						}
+						else temp[i]="*";
+						
+					} catch (Exception ignored) {
+						temp[i]="";
+					}
+				
+				}
+```
 Sista gjordes tetser kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
 
 
 
-## Versionshantering
+## Versionshanteringg
 
 Git har använts men GitHub kom in vid ett senare tillfälle på denna version av appen, jag hade en tidigare version där jag arbetade mot GitHub men hade en krasch i kombination med att jag gick över till MAven. JAg lessnade och skapade ett nytt projekt med samma kod och arbetade lokalt några dagar. Det är denna version jag nu har på GitHub.
 
-## Slutligen
+## Slutligenn
 
 
