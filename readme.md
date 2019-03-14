@@ -101,6 +101,12 @@ Av den anledningen har jag skapat ett "minne" som kommer ih√•g resulatet av ber√
 
 
 ```
+if (temp[i].equals(("+"))|| temp[i].equals(("-")))
+{
+mem=0.0;
+}
+			
+			
 if (temp[i].equals(("*"))) 
 {
 		if (mem==0.0) 
