@@ -444,6 +444,17 @@ public class TestCalc {
 	}
 	
 	@Test
+	public void testMultiplyByZero() {
+		//Arrange
+				Calculator calc = new Calculator();
+				// Act
+				double actual = calc.multiply(2, 0);
+				
+				//Assert
+				assertEquals(0, actual, 0.111);
+	}
+	
+	@Test
 	public void Max_test() 
 	{
 	  

@@ -36,6 +36,7 @@ public class Calculator {
 		Scanner scanner =new Scanner(System.in);
 		String input = scanner.nextLine();
 		
+		// Om man trycker q + Enter avslutas appen
 		if(input.equalsIgnoreCase("q")) 
 		{
 			loop="quit";
