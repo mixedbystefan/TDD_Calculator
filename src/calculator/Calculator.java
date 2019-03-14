@@ -158,11 +158,10 @@ public class Calculator {
 				
 				if (temp[i].equals(("√"))) 
 				{ 
-					// Kollar om strängen är double eller int
 					
-					if (isDouble(temp[i+1])) {result = root(Double.parseDouble(temp[i+1]));}
-					else Integer.parseInt(temp[i+1]);
-			
+						
+					result = root(Double.parseDouble(temp[i+1]));
+
 					temp[i+1]=Double.toString(result);
 					mem=0.0;
 					
@@ -170,6 +169,11 @@ public class Calculator {
 						if (temp[i-1].equals("*")) 
 						{
 							temp[i-1]="";	
+						}
+						if (temp[i-1].equals("-")) 
+						{
+							temp[i]="-";
+							temp[i-1]="";
 						}
 						else temp[i]="*";
 						

@@ -142,6 +142,19 @@ public class TestCalc {
 	}
 	
 	@Test
+	public void MinusInFrontOfRoot_test() 
+	{
+		//Arrange
+		Calculator calc = new Calculator();
+		String input = "2-√4";
+		//Act
+		String actual = calc.calculateExpression(input);
+		
+		//Assert
+		assertEquals("0.0", actual);	
+	}
+	
+	@Test
 	public void minusFirstOrLast_test() 
 	{
 		//Arrange

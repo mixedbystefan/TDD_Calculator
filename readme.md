@@ -204,14 +204,17 @@ if (temp[i].equals(("√")))
 				
 }
 ```
-Sista gjordes tetser kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
+Sista gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
+
+I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
 
 
+## Versionshantering
 
-## Versionshanteringg
+Git har använts lokalt sedan start, vid ett tillfälle hade jag en crash när jag gick över till Maven, då gjorde jag ett nytt projekt för att det var så mycket problem. Av den anledningen så har går inte historiken så långt tillbaka och denna version är den jag publicerat på GitHub. 
 
-Git har använts men GitHub kom in vid ett senare tillfälle på denna version av appen, jag hade en tidigare version där jag arbetade mot GitHub men hade en krasch i kombination med att jag gick över till MAven. JAg lessnade och skapade ett nytt projekt med samma kod och arbetade lokalt några dagar. Det är denna version jag nu har på GitHub.
+Jag tycker också egentligen att dokumentationer både ser bättre ut och går snabbare att skriva i word(sparad som PDF) men nu gör jag den som en readme på gitHUb bara för att jag vill testa hur det fungerar.
 
-## Slutligenn
+## Slutligen
 
 
