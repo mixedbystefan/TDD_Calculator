@@ -8,16 +8,26 @@ Här används Eclipse med JUnit4
 
 ### Funktioner
 
-Miniräknaren är konsollbaserad, tar in en sträng från användaren och returnerar ett svar som skrivs ut om användarens input är godkänd.
+Miniräknaren tar in en sträng från användaren och returnerar ett svar som skrivs ut på konsollen. Input valideras och om exempelvis bokstäver (med untantag "l" som i log) skrivs kommer ett felmddelande att tala om detta.
 
-Miniräknaren klarar av addtion, subtraktion, division, multiplikation, modulus, roten ur, logaritm(bas 10), exponent samt parenteser.
 
-Miniräknaren klarar inte av parenteser inom paranteser. 
-
-Metoderna längst ned i klassen Calculator har dessa tecken som kommentarer och kan kopieras om det äroklart vart dessa finns på keayboarden. Logaritmen skrivs "log" eller "l". 
+ 
 
 ```
-Give examples
+Miniräknarens funktioner
+
++ addition 
+- subtraktion
+* multiplikation
+/ division
+% modulus 
+√ rot
+^ exponent 
+l bas 10 logarithm (även "log" fungerar)
+() Parenteser
+
+Klarar inte av parenteser inom parenteser.
+
 ```
 
 ### Grundtanke
