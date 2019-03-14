@@ -92,7 +92,29 @@ Ny lista skapas:
 
 
 ```
-##Svårigheter med detta
+## Svårigheter med detta
+
+Eftersom en for-loop hanterar alla uträkningar kring operander av samma prioritet utan att brytas så krävs det att miniräknaren vet om den ska räkna ut talet som ett nytt tal eller utifrån resulatet av beräkningen innan.
+
+Av den anledningen har jag skapat ett "minne" som kommer ihåg resulatet av beräkningen innan, minnet motsvarar resulatet av uträkningen innan MEN nollställs om uträkningen innan inluderar en operand av annan prio.
+
+
+
+```
+if (temp[i].equals(("*"))) 
+{
+		if (mem==0.0) 
+				{
+				  result = multiply(d1, d2); mem=result;	
+				}
+		else 
+				{
+				  result = multiply(mem, d2); mem=result;		
+				}
+}
+```
+
+
 
 Så här i efterhand så tänker jag att det hade det varit lättare att överblicka och förstå koden om jag hade valt att rendera en ny lista efter varje uträkning, dvs inte haft flera for-loopar utan bara en och genom if-satser styrt ordningen.
 
@@ -116,23 +138,7 @@ Update list()
 
 ```
 
-Eftersom en for-loop hanterar alla uträkningar kring operander av samma prioritet så har ett minne skapats i de fall nästa uträkning ska baseras på resultatet av uträkningen innan. 
 
-
-
-```
-if (temp[i].equals(("*"))) 
-{
-		if (mem==0.0) 
-				{
-				  result = multiply(d1, d2); mem=result;	
-				}
-		else 
-				{
-				  result = multiply(mem, d2); mem=result;		
-				}
-}
-```
     
 
 ### Parenteser
