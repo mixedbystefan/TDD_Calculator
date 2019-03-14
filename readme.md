@@ -40,7 +40,32 @@ String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^
 
 String temp[] = userInput.split(regex);
 
-Programmet bygger på några for-loopar som beräknar delar av det inmatade talet efter operandernas prioritet. Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller * kommer en for loop snurra tills varje operand av denna prioriten är ersatt med en summa.
+Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
+
+Förenklat Psuedokod-exempel på två av looparna
+
+```
+for (varje index i listan)
+{
+	OM index = * {räkna ut detta}
+	OM index = / {räkna ut detta}
+}
+
+renderaNyLista()
+
+for (varje index i listan)
+{
+	OM index = + {räkna ut detta}
+	OM index = - {räkna ut detta}
+}
+
+renderaNyLista() och skriv ut resultat
+
+```
+
+Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller * kommer en for loop snurra tills varje operand av denna prioriten är ersatt med en summa.
+
+Operanden som motsvarar index i loopen omges i fallet multiplikation oftast av två siffror - uträkningen görs varpå den första siffran och operanden ersätts av tomma index "" och siffran på indexet ovanför ersätts med produkten från beräkningen.
 
 ```
 if (temp[i].equals(("*"))) 
@@ -92,8 +117,14 @@ En for-loop tar hand om 3*2 och 4/2, ersätter dessa tecken med summan och ”�
 
 När det inte finns några ”*” eller ”/” så bryts loopen och en ny lista sparas där tomma index raderas. Detta genom att använda ett Stringbuffer-objekt och append’a alla index i listan.
 
+Listan ovan skrivs ut som en sträng:
+
 ```
 ”” + ”” + ”6” + ”+” + ”” + ”” + ”2” = ”6+2”
+```
+Strängen split'as til en lista:
+
+```
 [0]=”6”  
 [1]=”+”
 [2]=”2” 
