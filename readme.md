@@ -1,48 +1,29 @@
-# Miniräknare TDD (Labb2)
+# Miniräknare TDD 
 
 Syftet med denna laboration är att använda att tillämpa testdriven utveckling, dvs skriva tester och bygga(expandera) applikationen utifrån dessa. 
 
 ## Verktyg
 
-Här används Eclipse med JUnit4 
+* Eclipse
+* JUnit4 
 
-### Funktioner
+## Funktionalitet
 
-Miniräknaren tar in en sträng från användaren och returnerar ett svar som skrivs ut på konsollen. Input valideras och om exempelvis bokstäver skrivs kommer ett felmeddelande att tala om detta.
+Miniräknaren klarar av de fyra räknesätten samt exponent, modulus, roten ur och logaritm (bas10). Den klarar också av parenteser (men inte parenteser inom parenteser).
 
+## Om koden
 
- 
-
-```
-Klarar av:
-
-+ addition 
-- subtraktion
-* multiplikation
-/ division
-% modulus 
-√ rot
-^ exponent 
-l logarithm (bas10) även "log" kan skrivas
-() Parenteser
-
-Klarar inte av:
-
-parenteser inom parenteser.
+Appen tar in en sträng från användaren som splittas vid varje tecken och läggs i en lista. 
 
 ```
-
-### Grundtanke
-
-Miniräknaren tar in en sträng från användaren splittas vid varje tecken och läggs i en lista. 
-
 String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
 
 String temp[] = userInput.split(regex);
+```
 
 Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
 
-Förenklat Psuedokod-exempel på två av looparna
+Förenklat Psuedokod-exempel kring två av dessa.
 
 ```
 for (varje index i listan)
@@ -63,7 +44,7 @@ renderaNyLista() och skriv ut resultat
 
 ```
 
-Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller * kommer en for loop snurra tills varje operand av denna prioriten är ersatt med en summa.
+Multiplikation och division har alltså samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer en for loopen att snurra tills varje operand av samma prioriten är ersatt med en summa.
 
 ```
 if (temp[i].equals(("*"))) 
@@ -77,80 +58,82 @@ if (temp[i].equals(("*")))
 		 }
 ```
 
-Exempel på detta:
+Exempel 1+3*2 
 
 
 ``` 
-AnvändarInput> 3*2
-
-
 innan talet gått in i if-satsen
 
-[0]=”3”
-[1]=”*”
-[2]=”2”
+[0]=”1”
+[1]=”+”
+[2]=”3”
+[3]=”*”
+[4]=”2”
 
 efter talet gått in i if-satsen
 
-[0]=””
-[1]=””
-[2]=”6”
-
-```
-
-
-Operanden som motsvarar index i loopen omges i fallet multiplikation oftast av två siffror - uträkningen görs varpå den första siffran och operanden ersätts av tomma index "" och siffran på indexet ovanför ersätts med produkten från beräkningen.
-
-
-
-
-En inmatning av 3*2+3/2 ser ut så här:
-
-```
-Miniräknaren
-> 3*2+3/2  
-
-[0]=”3”
-[1]=”*”
-[2]=”2”
-[3]=”+”
-[4]=”4”
-[5]=”/”
-[6]=”2”
-
-```
-
-En for-loop tar hand om 3*2 och 4/2, ersätter dessa tecken med summan och ”” för att radera oanvända index.
-
-```
-
-[0]=””
-[1]=””
-[2]=”6” - dvs 3*2
-[3]=”+”
-[4]=””
-[5]=””
-[6]=”2” – dvs 4/2
-```
-
-När det inte finns några ”*” eller ”/” så bryts loopen och en ny lista sparas där tomma index raderas. Detta genom att använda ett Stringbuffer-objekt och append’a alla index i listan.
-
-Listan ovan skrivs ut som en sträng:
-
-```
-”” + ”” + ”6” + ”+” + ”” + ”” + ”2” = ”6+2”
-```
-Strängen split'as til en lista:
-
-```
-[0]=”6”  
+[0]=”1”
 [1]=”+”
-[2]=”2” 
+[2]=””
+[3]=””
+[4]=”6”
+
+efter talet passerat for-loopen skapas ett Stringbuffer-objekt av listan vilket raderar tomma index.
+
+
+”1”  ”+”  ””  ””  ”6” 
+
+
+Ny lista skapas:
+
+[0]=”1”
+[1]=”+”
+[3]=”6”
+
+
+```
+##Svårigheter med detta
+
+Så här i efterhand så tänker jag att det hade det varit lättare att överblicka och förstå koden om jag hade valt att rendera en ny lista efter varje uträkning, dvs inte haft flera for-loopar utan bara en och genom if-satser styrt ordningen.
+
+Psuedokod
+
+```
+While (det finns en operand i listan)
+{
+     for (i=0; i<listan.length; i++)
+
+		{
+			If (i == ”*”){ multiply() break;}
+			Else If (i == ”/”){ divide() break;}
+			Else if (..nästa operand i prio)
+			Else if..
+			
+		}
+
+Update list()
+}
+
 ```
 
-Detta summeras sedan och ger ett resultat. Hade det varit fler tal att addera/subtrahera så hade resultatet av en uträkning sparats som en minnesvariabel och istället för att låta ”double d1 + double d2” gå in i metoden för addition får ”double resultat + double d2” göra det vilket i slutändan ger en double som resultat.
+Eftersom en for-loop hanterar alla uträkningar kring operander av samma prioritet så har ett minne skapats i de fall nästa uträkning ska baseras på resultatet av uträkningen innan. 
 
-Detta sätt att bygga koden visade sig fungera bra, det krävdes mycket hantering av fall där flera operander i rad får index att peka på tecken som metoderna inte kan ta emot.
+
+
+```
+if (temp[i].equals(("*"))) 
+{
+		if (mem==0.0) 
+				{
+				  result = multiply(d1, d2); mem=result;	
+				}
+		else 
+				{
+				  result = multiply(mem, d2); mem=result;		
+				}
+}
+```
+    
 
 ### Parenteser
 
