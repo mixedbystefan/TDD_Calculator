@@ -1,19 +1,19 @@
 # Miniräknare TDD 
 
-Syftet med denna laboration är att använda att tillämpa testdriven utveckling, dvs skriva tester och bygga(expandera) applikationen utifrån dessa. 
+Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund till implementerad funktionaltet - att expandera appen utifrån dessa. 
 
-## Verktyg
+### Verktyg
 
 * Eclipse
 * JUnit4 
 
 ## Funktionalitet
 
-Miniräknaren klarar av de fyra räknesätten samt exponent, modulus, roten ur och logaritm (bas10). Den klarar också av parenteser (men inte parenteser inom parenteser).
+Miniräknaren klarar av de fyra vanligaste räknesätten samt exponent, modulus, roten ur och logaritm (bas10). Den klarar också av parenteser (men inte parenteser inom parenteser).
 
 ## Om koden
 
-Appen tar in en sträng från användaren som splittas vid varje tecken och läggs i en lista. 
+Appen är konsollbaserad, tar in en sträng från användaren som splittas vid varje tecken och läggs i en lista. 
 
 ```
 String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
@@ -23,7 +23,7 @@ String temp[] = userInput.split(regex);
 
 Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
 
-Förenklat Psuedokod-exempel kring två av dessa.
+Psuedokod-exempel .
 
 ```
 for (varje index i listan)
@@ -44,7 +44,7 @@ renderaNyLista() och skriv ut resultat
 
 ```
 
-Multiplikation och division har alltså samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer en for loopen att snurra tills varje operand av samma prioriten är ersatt med en summa.
+Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av samma prioriten är ersatt med en summa.
 
 ```
 if (temp[i].equals(("*"))) 
@@ -58,7 +58,9 @@ if (temp[i].equals(("*")))
 		 }
 ```
 
-Exempel 1+3*2 
+Ett enkelt exempel 
+
+### 1+3*2 
 
 
 ``` 
@@ -80,9 +82,7 @@ efter talet gått in i if-satsen
 
 efter talet passerat for-loopen skapas ett Stringbuffer-objekt av listan vilket raderar tomma index.
 
-
 ”1”  ”+”  ””  ””  ”6” 
-
 
 Ny lista skapas:
 
