@@ -173,30 +173,36 @@ Ex.
 
 ```
 if (temp[i].equals(("√"))) 
-				{ 
+{ 
 
-					result = root(Double.parseDouble(temp[i+1]));
+			result = root(Double.parseDouble(temp[i+1]));
 
-					temp[i+1]=Double.toString(result);
-					mem=0.0;
+			temp[i+1]=Double.toString(result);
+			mem=0.0;
 					
-					try {
-						if (temp[i-1].equals("*")) 
-						{
-							temp[i-1]="";	
-						}
-						if (temp[i-1].equals("-")) 
-						{
-							temp[i]="-";
-							temp[i-1]="";
-						}
-						else temp[i]="*";
+			try 
+			{
+				if (temp[i-1].equals("*")) 
+				{
+					temp[i-1]="";	
+				}
+				if (temp[i-1].equals("-")) 
+				{
+					temp[i]="-";
+					temp[i-1]="";
+				}
+				
+			   else   temp[i]="*";
 						
-					} catch (Exception ignored) {
+			} 
+					
+			catch (Exception ignored)
+			 
+					{
 						temp[i]="";
 					}
 				
-				}
+}
 ```
 Sista gjordes tetser kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
 
