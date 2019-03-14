@@ -1,6 +1,7 @@
-# TDD Miniräknare
+# Miniräknare
+## Laboration 2 Testdriven Utveckling 
 
-One Paragraph of project description goes here
+Miniräknaren en java-app skriven för slutuppgiften i kursen 
 
 ## Getting Started
 
