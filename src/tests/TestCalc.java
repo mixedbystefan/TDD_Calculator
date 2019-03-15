@@ -467,20 +467,7 @@ public class TestCalc {
 				assertEquals(0, actual, 0.111);
 	}
 	
-	@Test
-	public void Max_test() 
-	{
-	  
-		//Arrange
-		Calculator calc = new Calculator();
-		// Act
-		double actual = calc.multiply(Double.MAX_VALUE, 2);
-		
-		//Assert
-		assertEquals(9d, actual, 0.111);
-		
-		
-	}
+	
 	
 	@Test
 	public void divide_test() 

@@ -4,6 +4,8 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.InputMismatchException;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -27,6 +29,19 @@ public class TestExceptions
 		
 		
 	}
+	
+	
+		
+		@Test(expected = InputMismatchException.class)
+		public void _doubleMax_ExceptionThrown() 
+		{
+			//Arrange 
+			Calculator calculator = new Calculator();
+			//Act
+			double actual = calculator.add(Double.MAX_VALUE, 1);
+			
+			
+		}
 	
 	// Undantag ska kastas om första tecken är * eller /
 	@Test(expected = ArrayIndexOutOfBoundsException.class)

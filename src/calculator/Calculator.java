@@ -108,7 +108,7 @@ public class Calculator {
                 
             }
         }
-        
+        // Kontrollerar så
         
         s=check.doMath(s);
        
@@ -361,6 +361,7 @@ public class Calculator {
 		
 		// Resultat returneras
 		
+		
 		String out = Double.toString(result);
 		return out;
 	
@@ -479,6 +480,8 @@ public class Calculator {
 	    }
 	}
 	
+	
+	
 	private static boolean isInteger(double d){
 	    double dAbs = Math.abs(d);
 	    int i = (int) dAbs;
@@ -501,6 +504,24 @@ public class Calculator {
 	    }
 	}
 
+	private boolean isNumberWithinRange(Double result) 
+	{
+		
+		try 
+		{
+			if (result< Double.MAX_VALUE)
+	        {
+				return true;
+			
+	        }
+			
+			else return false;
+	    } 
+		
+		catch (Exception Ignored) {
+	        return false;
+	    }	
+	}
 
 	// Uppdaterar listan genom att ta bort tomma index
 	public String[] refreshList(String[] temp) {
@@ -522,7 +543,8 @@ public class Calculator {
 	//add
 	public double add(double d1, double d2) 
 	{
-		return d1 + d2;
+		if (isNumberWithinRange(d1+d2)) {return d1 + d2;}
+		else throw new InputMismatchException("För stort double-värde"); 
 	}
 	//subtract
 	public double subtract(double d1, double d2) 
@@ -530,23 +552,30 @@ public class Calculator {
 		return d1 - d2;
 	}
 	//multiply
+	
+	
+	
 	public double multiply(double d1, double d2) 
 	{
-		return d1 * d2;
+		// om d1*d2 är inom gränsen (<double_MAX) för en double returneras svaret
+		if (isNumberWithinRange(d1*d2)) {return d1 * d2;}
+		else throw new InputMismatchException("För stort double-värde"); 
 	}
 	
 	//divide
 	public double divide(double d1, double d2) 
 	
 	{
+		if (isNumberWithinRange(d1/d2)) {return d1 / d2;}
 		if (d2==0) {throw new ArithmeticException("Du kan inte dela med 0!"); }
-		return d1 / d2;
+		else throw new InputMismatchException("För stort double-värde");
 	}	
 	
 	// modulus %
 		
 	public int modulus(int d1, int d2) 
 	{
+		
 		return Math.floorMod(d1, d2);
 	}
 		

@@ -225,6 +225,44 @@ Sista gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, e
 
 I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
 
+## Tester Undantag
+
+Det enda testet här som jag hade (och har) problem med är testet och undantaget som ska kastas om en double översiger värdet av double_MAX_VALUE. Om detta testet körs just innan resutatet skrivs ut så innebär det att appen redan hade krashat i metoden som gjorde uträkningen innan detta. Om jag inte tänker helt fel här borde det innebära att enda sättet att kunna kontrollera vilket undntag/meddelande som kastas är att göra en kontroll i alla metoder som gör uträkningar. I nuläget känner jag inte att detta behövs utan jag har valt att illustrera det i metoden add().
+
+Metoden som inte kastar ett undantag utan bara kontrollerar om doublevärdet överstiger double.MAX_VALUE och returnerar en boolean.
+
+```
+private boolean isNumberWithinRange(Double result) 
+	{
+		
+		try 
+		{
+			if (result< Double.MAX_VALUE)
+	        {
+				return true;
+			
+	        }
+			
+			else return false;
+	    } 
+		
+		catch (Exception Ignored) {
+	        return false;
+	    }	
+	}
+	
+```
+I metoderna kan man sedan i ifsatsen säga att om värdet är inom ramen för vad en double klarar av så görs ekvationen, annars kastas ett undantag.
+	
+```
+//add
+	public double add(double d1, double d2) 
+	{
+		if (isNumberWithinRange(d1+d2)) {return d1 + d2;}
+		else throw new InputMismatchException("För stort double-värde"); 
+	}
+
+```
 ## Avrundning
 
 Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet.  Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i mainmetoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.ä
