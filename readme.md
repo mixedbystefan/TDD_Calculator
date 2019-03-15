@@ -162,7 +162,15 @@ Om tecknet innan eller efter parentesen är en siffra ersätts denna med "*" fö
 
 ## Felhantering
 
-Mycket av felhanteringen gjordes direkt på användarens input. Här hade jag en standardminiräknare som förebild, exempelvis vill jag att appen ska returnera svaret 10 om användarens input är 10. Jag vill också att det inte ska spela någon roll om ekvationen inleds med +. Jag löste problemet med ett inledande minustecken kraschade för att det inte gick att hämta en siffra innan minustecknet med att helt enkelt lägga till en nolla.. -5+2 är ju samma sak som 0-5+2.
+Mycket av felhanteringen gjordes direkt på användarens input. 
+
+Här hade jag macOS miniräknare som förebild, exempelvis vill jag att appen ska returnera svaret 10 om användarens input är 10. 
+
+Jag vill också att det inte ska spela någon roll om ekvationen inleds med +. 
+
+Ett inledande minustecken kraschade koden för att det inte gick att hämta en siffra innan minustecknet, detta löstes med att helt enkelt lägga till en nolla. 
+
+-5+2 är samma sak som 0-5+2.
 
 Så här ser felhanteringen ut som görs på strängen med metoden replace()
 
@@ -196,19 +204,19 @@ private String adjustStackedOperands(String expression)
 ```
 ## Tankar kring testerna
 
-Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt fördelen med TDD, jag ville snabbt skulle komma igång med miniräknaren då det kändes som väldigt svårt, testerna kändes som något som mest skulle vara i vägen.
+Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt fördelen med TDD, jag ville snabbt skulle komma igång med miniräknaren som kändes svår att koda, testerna såg jag som något som mest skulle vara i vägen.
 
 Snabbt blev det tydligt att det var otroligt användbart att ha en rad tester som kan köras. Inte före bara att bygga koden utan även för att ständigt kontrollera at befintlig kod fungerar. Det övergick ganska snabbt i att testerna var helt nödvändiga, väldigt intressant process för mig.
 
-Enda gången jag egentligen frångick att utgå från testerna var mot slutet då jag försökte provocera fram fel, då gick det snabbare att köra programmet och skriva \"dumma\" tal. Sedan kunde tester på de som kraschade göras och fixas.
+Enda gången jag egentligen frångick att utgå från testerna var mot slutet då jag försökte provocera fram fel, då gick det snabbare att köra programmet och skriva "dumma" tal. Sedan kunde tester på de som kraschade göras och fixas.
 
 Jag antar att det är ungefär så det fungerar i verkligheten, att man inte låser sig till att utgå från testerna men att det helt enkelt är väldigt användbart så att man automatiskt förlitar sig på dom.
 
-Det som egentligen tog mest tid vara att testa kombinationer som kanske inte är helt vanliga och som inte förhåller sig till det vanliga - siffra operand siffra
+Det som egentligen tog mest tid vara att testa kombinationer som kanske inte är helt vanliga och som inte förhåller sig till siffra-operand-siffra.
 
-Exempelvis 2*(-√4) har en rad operander mellan siffrorna och därför måste varje fall lösas. 
+Exempelvis 2*(-√4) har en rad operander mellan siffrorna och därför måste varje fall lösas med en if-sats. 
 
-Ex.
+
 
 ```
 if (temp[i].equals(("√"))) 
@@ -244,7 +252,9 @@ if (temp[i].equals(("√")))
 }
 ```
 
-JAg har också försökt att inte göra massa test som inte testar funktionalitet som redan är testad, mot slutet så kunde jag inte motså att göra ett längre tal bara för att det ser komplicerat ut. Det fick grönt vilket borde betyda att jag varit ganska noga med testerna fram till detta.
+Jag har också försökt att inte göra massa test som inte testar funktionalitet som redan är testad, mot slutet så kunde jag inte motså att göra ett längre tal bara för att det ser komplicerat ut. 
+
+Det fick grönt vilket borde betyda att testerna har gjort ett bra jobb fram till detta.
 
 ```
 @Test
@@ -264,13 +274,17 @@ Sist gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, ef
 
 I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring() för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes ersättas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
 
+Parenteser inom parenteser blev för svårt för mig att tänka kring så detta implementerades inte, undantagshantering på detta gjordes däremot.
+
 ## Tester Undantag
 
 Det enda testet här som jag inte känner mig helt övertygad om är testet och undantaget som ska kastas om en double överstiger värdet av double_MAX_VALUE. 
 
-Om detta testet körs just innan resutatet skrivs ut så innebär det att appen redan hade krashat i metoden som gjorde uträkningen för att få detta resultat om värdet var för stort.
+Om detta testet körs just innan "slutresutatet" skrivs ut så innebär det att appen redan hade krashat i metoden som gjorde uträkningen för att få detta resultat om värdet var för stort.
 
-Om jag inte tänker helt fel här borde det innebära att enda sättet att kunna kontrollera detta är att göra det innan uträkningarna i metoderna för dessa. I nuläget väljer jag därför att endast illustrera det i metoden add().
+Det innebär också att programmet kan krascha av en overload vid alla tillfällen en input, konvertering eller utskrift görs. 
+
+Om jag inte tänker helt fel här borde det innebära att enda sättet att kunna kontrollera detta är att göra det vid användarinput, innan alla uträkningarna osv. I nuläget väljer jag därför att endast illustrera en implementation i metoden add().
 
 Metoden kontrollerar om doublevärdet överstiger double.MAX_VALUE.
 
@@ -304,8 +318,11 @@ I metoden add() körs additionen OM ovanstående metod säger att resultatet är
 		if (isNumberWithinRange(d1+d2)) {return d1 + d2;}
 		else throw new InputMismatchException("För stort double-värde"); 
 	}
+	
 
 ```
+
+
 ## Avrundning
 
 Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet. Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i main-metoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.
