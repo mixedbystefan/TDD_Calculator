@@ -130,9 +130,11 @@ if (temp[i].equals(("*")))
 
 ## Parenteser
 
-När allt annat fungerade så skrevs en metod för att hantera parenteser, eftersom de har högst prio och måste räknas ut först fick denna metod bli huvudmetod och vara den som körs från mainmetoden.
+Sist av allt började arbetet med en metod för att hantera parenteser, eftersom de har högst prio och måste räknas ut först fick denna metod bli huvudmetod och vara den som körs från mainmetoden.
 
-I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av input-strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser).
+I praktiken så undersöker metoden om det finns parenteser, om så inte är fallet så anropar metoden bara "gamla" huvudemetoden och returnerar svaret denna ger.
+
+Om det finns parenteser så används metoden substring() för att separera dess innehåll från resten av input-strängen. Sedan kan parentesen ses som en fristånde beräkning (utifrån en egen instans av klassen Calculator) och går in i metoden för beräkningar som ett "eget tal". 
 
 Resultatet "klistras" sedan in istället för parentesen i den ursprungliga strängen. 
 
@@ -156,8 +158,9 @@ for(int i=o; i>=0;i--)
 ```
 Denna uppdaterade sträng passerar sedan än en gång genom metoden som gör alla beräkningar. 
 
-
 Om tecknet innan eller efter parentesen är en siffra ersätts denna med "*" för att parentsens innehåll ska multipliceras efter att innehållet monterats i ursprungliga inpusträngen.
+
+Parenteser inom parenteser blev för svårt för mig att tänka kring så detta implementerades inte, undantagshantering på detta gjordes däremot.
 
 
 ## Felhantering
@@ -270,11 +273,7 @@ Det fick grönt vilket borde betyda att testerna har gjort ett bra jobb fram til
 		assertEquals("101.0", actual);	
 	}
 ```
-Sist gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
 
-I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring() för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes ersättas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
-
-Parenteser inom parenteser blev för svårt för mig att tänka kring så detta implementerades inte, undantagshantering på detta gjordes däremot.
 
 ## Tester Undantag
 
