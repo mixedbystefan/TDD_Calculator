@@ -2,7 +2,7 @@
 
 Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund för implementerad funktionaltet - att expandera appen utifrån dessa. 
 
-### Verktyg
+## Verktyg
 
 * Eclipse
 * JUnit4 
@@ -99,7 +99,7 @@ Eftersom varje for-loop hanterar flera operander utan att brytas mellan uträkni
 Minnet motsvarar resulatet av uträkningen innan och nollställs om uträkningen innan inluderar en operand av annan prio.
 
 
-Om index pekar på  + eller -
+### Om index pekar på  + eller -
 
 ```
 if (temp[i].equals(("+"))|| temp[i].equals(("-")))
@@ -107,7 +107,7 @@ if (temp[i].equals(("+"))|| temp[i].equals(("-")))
 mem=0.0;
 }
 ```
-Minnet avgör vad som går in i metoden för multiplikationen
+### Minnet avgör vad som går in i metoden för multiplikationen
 ```			
 			
 if (temp[i].equals(("*"))) 
@@ -125,14 +125,46 @@ if (temp[i].equals(("*")))
 
     
 
-### Parenteser
+## Parenteser
 
 När allt annat fungerade så skrevs en metod för att hantera parenteser, eftersom de har högst prio och måste räknas ut först fick denna metod bli huvudmetod och vara den som körs från mainmetoden. 
 
 I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av input-strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med "*" om tecknet innan eller efter är en siffra. Detta görs genom en if-sats.
 
+## Felhantering
 
+Mycket av felhanteringen gjordes direkt på användarens input. Här hade jag en standardminiräknare som förebild, exempelvis vill jag att appen ska returnera svaret 10 om användarens input är 10. Jag vill också att det inte ska spela någon roll om ekvationen inleds med +. Jag löste problemet med ett inledande minustecken krashade för att det inte gick att hämta en siffra innan minustecknet med att helt enkelt lägga till en nolla. -5+2 är ju samma sak som 0-5+2.
 
+Så här ser felhanteringen ut som görs på strängen med metoden replace()
+
+```
+private String adjustStackedOperands(String expression) 
+	{
+		String plusMinusToMinus = expression.replace("+-", "-");
+		String ZeroTimesMinus = plusMinusToMinus.replace("0*-", "0*");
+		String MinusPlusToMinus = ZeroTimesMinus.replace("-+", "-");
+		String logTol = MinusPlusToMinus.replace("log", "l");
+		String logTol_2 = logTol.replace("Log", "l");
+		String logTol_3 = logTol_2.replace("LOG", "l");
+		String multiplyBeforeRoot = logTol_3.replace("*√", "√");
+		String twoMinusEqPlus =multiplyBeforeRoot.replace("--", "+");
+		
+		
+		// Om första tecknet är - så läggs en nolla till innan
+		if (twoMinusEqPlus.substring(0, 1).equalsIgnoreCase("-")){
+			String updatedInput= "0" + twoMinusEqPlus;
+			twoMinusEqPlus = updatedInput;
+		}
+		// Om första tecknet är * så skickas felmeddelande
+		if (expression.substring(0, 1).equalsIgnoreCase("*")|| expression.substring(0, 1).equalsIgnoreCase("/"))
+		{throw new ArrayIndexOutOfBoundsException("Första tecknet får inte vara * eller /!");}
+		
+		
+		
+		return twoMinusEqPlus;
+	}
+
+```
 ## Tankar kring testerna
 
 Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt födelen med TDD, jag ville snabbt skulle komma igång med miniräknaren då det kändes som väldigt svårt, testerna kändes som något som mest skulle vara ivägen. 
