@@ -1,6 +1,6 @@
 # Miniräknare TDD 
 
-Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund till implementerad funktionaltet - att expandera appen utifrån dessa. 
+Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund för implementerad funktionaltet - att expandera appen utifrån dessa. 
 
 ### Verktyg
 
@@ -13,7 +13,7 @@ Miniräknaren klarar av de fyra vanligaste räknesätten samt exponent, modulus,
 
 ## Om koden
 
-Appen är konsollbaserad, tar in en sträng från användaren som splittas vid varje tecken och läggs i en lista. 
+Appen är har ett konsollbaserat gränssnitt, tar in en sträng från användaren som splittas vid varje tecken och läggs i en lista. 
 
 ```
 String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
@@ -23,7 +23,7 @@ String temp[] = userInput.split(regex);
 
 Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
 
-Psuedokod-exempel .
+Psuedokod-exempel 
 
 ```
 for (varje index i listan)
@@ -44,7 +44,7 @@ renderaNyLista() och skriv ut resultat
 
 ```
 
-Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av samma prioriten är ersatt med en summa.
+Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av denna prioritet (*, /, %) är ersatt med ett resultat av uträkningen.
 
 ```
 if (temp[i].equals(("*"))) 
@@ -94,18 +94,21 @@ Ny lista skapas:
 ```
 ## Svårigheter med detta
 
-Eftersom en for-loop hanterar alla uträkningar kring operander av samma prioritet utan att brytas så krävs det att miniräknaren vet om den ska räkna ut talet som ett nytt tal eller utifrån resulatet av beräkningen innan.
+Eftersom varje for-loop hanterar flera operander utan att brytas mellan uträkningarna så används en minnesvariabel.
 
-Av den anledningen har jag skapat ett "minne" som kommer ihåg resulatet av beräkningen innan, minnet motsvarar resulatet av uträkningen innan MEN nollställs om uträkningen innan inluderar en operand av annan prio.
+Minnet motsvarar resulatet av uträkningen innan och nollställs om uträkningen innan inluderar en operand av annan prio.
 
 
+Om index pekar på  + eller -
 
 ```
 if (temp[i].equals(("+"))|| temp[i].equals(("-")))
 {
 mem=0.0;
 }
-			
+```
+Minnet avgör vad som går in i metoden för multiplikationen
+```			
 			
 if (temp[i].equals(("*"))) 
 {
@@ -119,31 +122,6 @@ if (temp[i].equals(("*")))
 				}
 }
 ```
-
-
-
-Så här i efterhand så tänker jag att det hade det varit lättare att överblicka och förstå koden om jag hade valt att rendera en ny lista efter varje uträkning, dvs inte haft flera for-loopar utan bara en och genom if-satser styrt ordningen.
-
-Psuedokod
-
-```
-While (det finns en operand i listan)
-{
-     for (i=0; i<listan.length; i++)
-
-		{
-			If (i == ”*”){ multiply() break;}
-			Else If (i == ”/”){ divide() break;}
-			Else if (..nästa operand i prio)
-			Else if..
-			
-		}
-
-Update list()
-}
-
-```
-
 
     
 
@@ -227,9 +205,13 @@ I praktiken så undersöker metoden om det finns parenteser, om så är fallet s
 
 ## Tester Undantag
 
-Det enda testet här som jag hade (och har) problem med är testet och undantaget som ska kastas om en double översiger värdet av double_MAX_VALUE. Om detta testet körs just innan resutatet skrivs ut så innebär det att appen redan hade krashat i metoden som gjorde uträkningen innan detta. Om jag inte tänker helt fel här borde det innebära att enda sättet att kunna kontrollera vilket undntag/meddelande som kastas är att göra en kontroll i alla metoder som gör uträkningar. I nuläget känner jag inte att detta behövs utan jag har valt att illustrera det i metoden add().
+Det enda testet här som jag inte känner mig helt övertygad om är testet och undantaget som ska kastas om en double översiger värdet av double_MAX_VALUE. 
 
-Metoden som inte kastar ett undantag utan bara kontrollerar om doublevärdet överstiger double.MAX_VALUE och returnerar en boolean.
+Om detta testet körs just innan resutatet skrivs ut så innebär det att appen redan hade krashat i metoden som gjorde uträkningen för att få detta resultat om värdet var för stort.
+
+Om jag inte tänker helt fel här borde det innebära att enda sättet att kunna kontrollera detta är att göra det innan uträkningarna i metoderna för dessa. I nuläget väljer jag därför att endast illustrera det i metoden add().
+
+Metoden kontrollerar om doublevärdet överstiger double.MAX_VALUE.
 
 ```
 private boolean isNumberWithinRange(Double result) 
@@ -252,7 +234,7 @@ private boolean isNumberWithinRange(Double result)
 	}
 	
 ```
-I metoderna kan man sedan i ifsatsen säga att om värdet är inom ramen för vad en double klarar av så görs ekvationen, annars kastas ett undantag.
+I metoden add() körs additionen OM ovanstående metod säger att resultatet är inom ramen för en double.
 	
 ```
 //add
@@ -280,4 +262,26 @@ För mig har denna uppgift varit väldigt givande, dels för att jag inte trodde
 Jag inser förstås att mitt sätt att skriva koden säkert är väldgt DIY och förmodligen inte den mest kompakta/smartaste. 
 
 Samtidigt är det just detta som gör det extra givande - att det faktiskt går att tänkta ut något som för mig är ganska avancerat - att "fiffla" sig till en fungerande app med hjälp av TDD.
+
+Så här i efterhand så tänker jag att det hade det varit lättare att överblicka och förstå koden om jag hade valt att rendera en ny lista efter varje uträkning, dvs inte haft flera for-loopar utan bara en och genom if-satser styrt ordningen.
+
+Psuedokod
+
+```
+While (det finns en operand i listan)
+{
+     for (i=0; i<listan.length; i++)
+
+		{
+			If (i == ”*”){ multiply() break;}
+			Else If (i == ”/”){ divide() break;}
+			Else if (..nästa operand i prio)
+			Else if..
+			
+		}
+
+Update list()
+}
+
+```
 

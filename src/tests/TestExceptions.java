@@ -30,7 +30,9 @@ public class TestExceptions
 		
 	}
 	
-	
+	// Testar Gränsvärde 
+	// Undantag ska kastas när resultatet en metod övertsiger det värde som 
+	// kan lagras i en double
 		
 		@Test(expected = InputMismatchException.class)
 		public void _doubleMax_ExceptionThrown() 
