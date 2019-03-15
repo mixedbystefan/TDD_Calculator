@@ -336,7 +336,7 @@ Jag tycker också egentligen att dokumentationer både ser bättre ut och går s
 
 Hittade en smidig lösning (för sent) - användes enbart för att kontrollera stavfel.
 
-* [Word-doc to readme.md](https://gist.github.com/jesperronn/ff5764274b3642bc7f2f) 
+* [Hur man konverterar word-dokument till readme-fil](https://gist.github.com/jesperronn/ff5764274b3642bc7f2f) 
 
 ## Slutligen
 
