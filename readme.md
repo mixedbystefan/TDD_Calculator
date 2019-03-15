@@ -358,7 +358,7 @@ While (det finns en operand i listan)
 		{
 			If (i == ”*”){ multiply() break;}
 			Else If (i == ”/”){ divide() break;}
-			Else if (..nästa operand i prio)
+			Else if (..nästa operatör i prio)
 			Else if..
 			
 		}
