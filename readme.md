@@ -48,7 +48,7 @@ renderaNyLista() och skriv ut resultat
 
 ```
 
-Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av denna prioritett (*, /, %)  är ersatt med ett resultat från uträkningen.
+Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av denna prioritet (*, /, %)  är ersatt med ett resultat från uträkningen.
 
 ```
 if (temp[i].equals(("*"))) 
