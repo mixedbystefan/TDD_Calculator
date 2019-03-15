@@ -11,9 +11,11 @@ Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tes
 
 Miniräknaren klarar av de fyra vanligaste räknesätten samt exponent, modulus, roten ur och logaritm (bas10). Den klarar också av parenteser (men inte parenteser inom parenteser).
 
+Appen har ett konsollbaserat gränssnitt
+
 ## Om koden
 
-Appen är har ett konsollbaserat gränssnitt, tar in en sträng från användaren som splittas vid varje tecken och läggs i en lista. 
+Först tas avändarinput(sträng)från användaren som splittas vid varje tecken och läggs i en lista. 
 
 ```
 String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
@@ -23,7 +25,8 @@ String temp[] = userInput.split(regex);
 
 Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
 
-Psuedokod-exempel 
+
+###Psuedokod-exempel 
 
 ```
 for (varje index i listan)
@@ -58,9 +61,8 @@ if (temp[i].equals(("*")))
 		 }
 ```
 
-Ett enkelt exempel 
 
-### 1+3*2 
+### EX  1+3*2 
 
 
 ``` 
@@ -129,7 +131,33 @@ if (temp[i].equals(("*")))
 
 När allt annat fungerade så skrevs en metod för att hantera parenteser, eftersom de har högst prio och måste räknas ut först fick denna metod bli huvudmetod och vara den som körs från mainmetoden. 
 
-I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av input-strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med "*" om tecknet innan eller efter är en siffra. Detta görs genom en if-sats.
+I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av input-strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser).
+
+Resultatet ”klistras” sedan in istället för parentesen i den ursprungliga strängen. 
+
+
+### Substring() används för att "montera" en ny sträng
+
+```
+
+for(int i=o; i>=0;i--)
+                    
+             {
+                 if(s.charAt(i)=='(')        
+                        {                          
+                            String in = s.substring(i+1,o);
+                            in = check.doMath(in);   
+                            s=s.substring(0,i)+in+s.substring(o+1); 
+                            i=o=0;
+                        }
+                    }
+
+```
+Denna uppdaterade sträng passerar sedan än en gång genom metoden som gör alla beräkningar. 
+
+
+Om tecknet innan eller efter parentesen är en siffra ersätts denna med "*" för att parentsens innehåll ska multipliceras efter att innehållet monterats i ursprungliga inpusträngen.
+
 
 ## Felhantering
 
