@@ -1,6 +1,6 @@
 # Miniräknare TDD 
 
-Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund för implementerad funktionaltet - att expandera appen utifrån dessa. 
+Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund för implementerad funktionalitet - att expandera appen utifrån dessa.
 
 ## Verktyg
 
@@ -9,13 +9,14 @@ Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tes
 
 ## Funktionalitet
 
-Miniräknaren klarar av de fyra vanligaste räknesätten samt exponent, modulus, roten ur och logaritm (bas10). Den klarar också av parenteser (men inte parenteser inom parenteser).
+Miniräknaren klarar av de fyra vanligaste räknesätten samt exponent, modulus, roten ur och logaritm (bas10). Den klarar också av parenteser
+(men inte parenteser inom parenteser).
 
-Appen har ett konsollbaserat gränssnitt
+Appen har ett konsolbaserat gränssnitt
 
 ## Om koden
 
-Först tas avändarinput(sträng)från användaren som splittas vid varje tecken och läggs i en lista. 
+Först tas användarinput(sträng)från användaren som splittas vid varje tecken och läggs i en lista. 
 
 ```
 String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])";
@@ -98,7 +99,7 @@ Ny lista skapas:
 
 Eftersom varje for-loop hanterar flera operander utan att brytas mellan uträkningarna så används en minnesvariabel.
 
-Minnet motsvarar resulatet av uträkningen innan och nollställs om uträkningen innan inluderar en operand av annan prio.
+Minnet motsvarar resultatet av uträkningen innan och nollställs om uträkningen innan inkluderar en operand av annan prio.
 
 
 ### Om index pekar på  + eller -
@@ -129,11 +130,11 @@ if (temp[i].equals(("*")))
 
 ## Parenteser
 
-När allt annat fungerade så skrevs en metod för att hantera parenteser, eftersom de har högst prio och måste räknas ut först fick denna metod bli huvudmetod och vara den som körs från mainmetoden. 
+När allt annat fungerade så skrevs en metod för att hantera parenteser, eftersom de har högst prio och måste räknas ut först fick denna metod bli huvudmetod och vara den som körs från mainmetoden.
 
 I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av input-strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser).
 
-Resultatet ”klistras” sedan in istället för parentesen i den ursprungliga strängen. 
+Resultatet "klistras" sedan in istället för parentesen i den ursprungliga strängen. 
 
 
 ### Substring() används för att "montera" en ny sträng
@@ -161,7 +162,7 @@ Om tecknet innan eller efter parentesen är en siffra ersätts denna med "*" fö
 
 ## Felhantering
 
-Mycket av felhanteringen gjordes direkt på användarens input. Här hade jag en standardminiräknare som förebild, exempelvis vill jag att appen ska returnera svaret 10 om användarens input är 10. Jag vill också att det inte ska spela någon roll om ekvationen inleds med +. Jag löste problemet med ett inledande minustecken krashade för att det inte gick att hämta en siffra innan minustecknet med att helt enkelt lägga till en nolla. -5+2 är ju samma sak som 0-5+2.
+Mycket av felhanteringen gjordes direkt på användarens input. Här hade jag en standardminiräknare som förebild, exempelvis vill jag att appen ska returnera svaret 10 om användarens input är 10. Jag vill också att det inte ska spela någon roll om ekvationen inleds med +. Jag löste problemet med ett inledande minustecken kraschade för att det inte gick att hämta en siffra innan minustecknet med att helt enkelt lägga till en nolla.. -5+2 är ju samma sak som 0-5+2.
 
 Så här ser felhanteringen ut som görs på strängen med metoden replace()
 
@@ -195,11 +196,11 @@ private String adjustStackedOperands(String expression)
 ```
 ## Tankar kring testerna
 
-Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt födelen med TDD, jag ville snabbt skulle komma igång med miniräknaren då det kändes som väldigt svårt, testerna kändes som något som mest skulle vara ivägen. 
+Jag är inte så avancerad i matematik och till en början så såg jag inte riktigt fördelen med TDD, jag ville snabbt skulle komma igång med miniräknaren då det kändes som väldigt svårt, testerna kändes som något som mest skulle vara i vägen.
 
-Snabbt blev det tydligt att det var otroligt använbart att ha en rad tester som kan köras. Int före bara att bygga koden utan även för att ständigt kontrollera at befintlig kod fungerar. Det övergick ganska snabbt i att testerna var helt nödvändiga, väldigt intressant process för mig.
+Snabbt blev det tydligt att det var otroligt användbart att ha en rad tester som kan köras. Inte före bara att bygga koden utan även för att ständigt kontrollera at befintlig kod fungerar. Det övergick ganska snabbt i att testerna var helt nödvändiga, väldigt intressant process för mig.
 
-Enda gången jag egentligen frångick att utgå från testerna var mot slutet då jag försökte provocera fram fel, då gick det snabbare att köra programmet och skriva "dumma" tal. Sedan kunde tester på de som crashade göras och fixas.
+Enda gången jag egentligen frångick att utgå från testerna var mot slutet då jag försökte provocera fram fel, då gick det snabbare att köra programmet och skriva \"dumma\" tal. Sedan kunde tester på de som kraschade göras och fixas.
 
 Jag antar att det är ungefär så det fungerar i verkligheten, att man inte låser sig till att utgå från testerna men att det helt enkelt är väldigt användbart så att man automatiskt förlitar sig på dom.
 
@@ -243,7 +244,7 @@ if (temp[i].equals(("√")))
 }
 ```
 
-JAg har också försökt att inte göra massa test som inte testar funtionalitet som redan är testad, mot slutet så kunde jag inte motså att göra ett längre tal bara för att det ser komplicerat ut. Det fick grönt vilket borde betyda att jag varit ganska noga med testerna fram till detta.
+JAg har också försökt att inte göra massa test som inte testar funktionalitet som redan är testad, mot slutet så kunde jag inte motså att göra ett längre tal bara för att det ser komplicerat ut. Det fick grönt vilket borde betyda att jag varit ganska noga med testerna fram till detta.
 
 ```
 @Test
@@ -259,13 +260,13 @@ JAg har också försökt att inte göra massa test som inte testar funtionalitet
 		assertEquals("101.0", actual);	
 	}
 ```
-Sista gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
+Sist gjordes tester kring parenteser och här krävdes en helt ny huvudmetod, eftersom denna kunde skrivas helt separat utan att påverka det som redan fanns där rörde det inte till koden så mycket.
 
-I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring-metoden för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes anslutas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
+I praktiken så undersöker metoden om det finns parenteser, om så är fallet så används substring() för att separera dessa från resten av strängen. Sedan kan parentesen ses som eget tal (som beräknas precis som en uträkning utan parenteser) men vars resultat ”klistras” in istället för parentesen i den ursprungliga strängen. Denna passerar sedan än en gång genom metoden som gör alla beräkningar. Här så måste en parentes ersättas med * om tecknet innan eller efter är en siffra vilket görs genom en if-sats.
 
 ## Tester Undantag
 
-Det enda testet här som jag inte känner mig helt övertygad om är testet och undantaget som ska kastas om en double översiger värdet av double_MAX_VALUE. 
+Det enda testet här som jag inte känner mig helt övertygad om är testet och undantaget som ska kastas om en double överstiger värdet av double_MAX_VALUE. 
 
 Om detta testet körs just innan resutatet skrivs ut så innebär det att appen redan hade krashat i metoden som gjorde uträkningen för att få detta resultat om värdet var för stort.
 
@@ -307,19 +308,20 @@ I metoden add() körs additionen OM ovanstående metod säger att resultatet är
 ```
 ## Avrundning
 
-Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet.  Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i mainmetoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.ä
+Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet. Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i main-metoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.
+
 
 ## Versionshanteringg
 
-Git har använts lokalt sedan start, vid ett tillfälle hade jag en crash när jag gick över till Maven, då gjorde jag ett nytt projekt för att det var så mycket problem. Av den anledningen så har går inte historiken så långt tillbaka och denna version är den jag publicerat på GitHub. 
+Git har använts lokalt sedan start, vid ett tillfälle hade jag en krasch när jag gick över till Maven, då gjorde jag ett nytt projekt för att det var så mycket problem. Av den anledningen så har går inte historiken så långt tillbaka och denna version är den jag publicerat på GitHub.
 
-Jag tycker också egentligen att dokumentationer både ser bättre ut och går snabbare att skriva i word(sparad som PDF) men nu gör jag den som en readme på gitHUb bara för att jag vill testa hur det fungerar.
+Jag tycker också egentligen att dokumentationer både ser bättre ut och går snabbare att skriva i word(sparad som PDF) men nu gör jag den som en readme på GitHUb bara för att jag vill testa hur det fungerar
 
 ## Slutligen
 
-För mig har denna uppgift varit väldigt givande, dels för att jag inte trodde jag skulle klara att göra miniräknaren men också för att testerna visade sig väldigt användbara. 
+För mig har denna uppgift varit väldigt givande, dels för att jag inte trodde jag skulle klara att göra miniräknaren men också för att testerna visade sig väldigt användbara.
 
-Jag inser förstås att mitt sätt att skriva koden säkert är väldgt DIY och förmodligen inte den mest kompakta/smartaste. 
+Jag inser förstås att mitt sätt att skriva koden säkert är väldigt DIY och förmodligen inte den mest kompakta/smartaste.
 
 Samtidigt är det just detta som gör det extra givande - att det faktiskt går att tänkta ut något som för mig är ganska avancerat - att "fiffla" sig till en fungerande app med hjälp av TDD.
 
