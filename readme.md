@@ -27,7 +27,7 @@ String temp[] = userInput.split(regex);
 Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
 
 
-###Psuedokod-exempel 
+### Psuedokod-exempel 
 
 ```
 for (varje index i listan)
@@ -48,7 +48,7 @@ renderaNyLista() och skriv ut resultat
 
 ```
 
-Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av denna prioritet (*, /, %) är ersatt med ett resultat av uträkningen.
+Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller "*" kommer loopen att snurra tills varje operand av denna prioritett (*, /, %)  är ersatt med ett resultat av uträkningen.
 
 ```
 if (temp[i].equals(("*"))) 
