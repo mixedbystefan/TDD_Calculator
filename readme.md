@@ -137,7 +137,7 @@ I praktiken så undersöker metoden om det finns parenteser, om så är fallet s
 Resultatet "klistras" sedan in istället för parentesen i den ursprungliga strängen. 
 
 
-### Substring() används för att "montera" en ny sträng
+Substring() används för att "montera" en ny sträng (nedan)
 
 ```
 
@@ -328,11 +328,15 @@ I metoden add() körs additionen OM ovanstående metod säger att resultatet är
 Jag har haft två andra miniräknare som förebilder, macOS egna och en avancerad räknare på nätet. Ett resultat med många decimaler visades på samma sätt men däremot gillade jag inte att 10 + 10 blev 20.0. Detta avrundades vid utskriften i main-metoden efter alla tester. Det kanske borde testas separat bara för att det kan ge fel precis som allt annat men jag har dubbelkollat detta manuellt och nöjer mig med den lösningen här.
 
 
-## Versionshanteringg
+## Versionshantering
 
 Git har använts lokalt sedan start, vid ett tillfälle hade jag en krasch när jag gick över till Maven, då gjorde jag ett nytt projekt för att det var så mycket problem. Av den anledningen så har går inte historiken så långt tillbaka och denna version är den jag publicerat på GitHub.
 
 Jag tycker också egentligen att dokumentationer både ser bättre ut och går snabbare att skriva i word(sparad som PDF) men nu gör jag den som en readme på GitHUb bara för att jag vill testa hur det fungerar
+
+Hittade en smidig lösning (för sent) - användes enbart för att kontrollera stavfel.
+
+* [Word-doc to readme.md](https://gist.github.com/jesperronn/ff5764274b3642bc7f2f) 
 
 ## Slutligen
 
