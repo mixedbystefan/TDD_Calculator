@@ -25,7 +25,7 @@ String regex = "(?<=[\\(\\)\\+\\-*%√\\/\\^A-Za-z])|(?=[\\(\\)\\+\\-*%√\\/\\^
 String temp[] = userInput.split(regex);
 ```
 
-Programmet bygger på några for-loopar ordnade efter operandernas prioritet.
+Programmet bygger på några for-loopar ordnade efter operatorernas prioritet.
 
 
 ### Psuedokod-exempel 
@@ -49,7 +49,7 @@ renderaNyLista() och skriv ut resultat
 
 ```
 
-Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller * kommer loopen att snurra tills varje operand av denna prioritet är ersatt med ett resultat från uträkningen.
+Multiplikation och division har samma prio och kan därför räknas ut tillsammans oberoende av intern ordning, om användarinput innehåller * kommer loopen att snurra tills varje operator av denna prioritet är ersatt med ett resultat från uträkningen.
 
 ```
 if (temp[i].equals(("*"))) 
@@ -98,9 +98,9 @@ Ny lista skapas:
 ```
 ## Svårigheter med detta
 
-Eftersom varje for-loop hanterar flera operander utan att brytas mellan uträkningarna så används en minnesvariabel.
+Eftersom varje for-loop hanterar flera operatorer utan att brytas mellan uträkningarna så används en minnesvariabel.
 
-Minnet motsvarar resultatet av uträkningen innan och nollställs om uträkningen innan inkluderar en operand av annan prio.
+Minnet motsvarar resultatet av uträkningen innan och nollställs om uträkningen innan inkluderar en operator av annan prio.
 
 
 ### Om index pekar på  + eller -
@@ -216,9 +216,9 @@ Enda gången jag egentligen frångick att utgå från testerna var mot slutet d�
 
 Jag antar att det är ungefär så det fungerar i verkligheten, att man inte låser sig till att utgå från testerna men att det helt enkelt är väldigt användbart så att man automatiskt förlitar sig på dom.
 
-Det som egentligen tog mest tid vara att testa kombinationer som kanske inte är helt vanliga och som inte förhåller sig till siffra-operand-siffra.
+Det som egentligen tog mest tid vara att testa kombinationer som kanske inte är helt vanliga och som inte förhåller sig till operand-operator-operand.
 
-Exempelvis 2*(-√4) har en rad operander mellan siffrorna och därför måste varje fall lösas med en if-sats. 
+Exempelvis 2*(-√4) har en rad operatorer mellan siffrorna och därför måste varje fall lösas med en if-sats. 
 
 
 
