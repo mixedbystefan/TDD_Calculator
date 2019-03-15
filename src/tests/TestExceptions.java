@@ -18,7 +18,7 @@ public class TestExceptions
 	//Arrange
 		Calculator calc = new Calculator();
 		
-	// Kollar error vid division med 0
+	// Undantag ska kastas vid divison med 0
 	@Test(expected = ArithmeticException.class)
 	public void dividedByZero_ExceptionThrown() 
 	{
@@ -35,7 +35,7 @@ public class TestExceptions
 	// kan lagras i en double
 		
 		@Test(expected = InputMismatchException.class)
-		public void _doubleMax_ExceptionThrown() 
+		public void doubleMax_ExceptionThrown() 
 		{
 			//Arrange 
 			Calculator calculator = new Calculator();
@@ -47,7 +47,7 @@ public class TestExceptions
 	
 	// Undantag ska kastas om första tecken är * eller /
 	@Test(expected = ArrayIndexOutOfBoundsException.class)
-	public void notALlowedSubstringZero_ExceptionThrown() 
+	public void notAllowedAsSubstringZero_ExceptionThrown() 
 	{
 		//Arrange 
 		Calculator calculator = new Calculator();
@@ -94,7 +94,7 @@ public class TestExceptions
         
     }
     
-    // Undantag ska kastats
+    // Undantag ska kastats om bokstäver används
     
     @Test
     public void throwsExceptionForUsingLetters() {

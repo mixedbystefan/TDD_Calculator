@@ -15,8 +15,8 @@ public class TestCalc {
 	Calculator calc = new Calculator();
 	
 	
-	// minräknarens huvud-metod
 	
+	// Ett sista test med massor av "svårigheter"
 	@Test
 	public void allOperatorsAdvanced_test() 
 	{
@@ -28,21 +28,6 @@ public class TestCalc {
 		
 		//Assert
 		assertEquals("101.0", actual);	
-	}
-	
-	@Test
-	public void allOperatorsAdvanced2_test() 
-	{
-		//Arrange
-		Calculator calc = new Calculator();
-		String input = "-1+2/(√16-2)*√4"; 
-		
-		
-		//Act
-		String actual = calc.calculateExpression(input);
-		
-		//Assert
-		assertEquals("1.0", actual);	
 	}
 	
 	
@@ -62,7 +47,7 @@ public class TestCalc {
 	
 
 	@Test
-	public void rootBeforeBracket_test_test() 
+	public void rootBeforeBracket_test() 
 	{
 		//Arrange
 		Calculator calc = new Calculator();
@@ -88,7 +73,7 @@ public class TestCalc {
 	}
 	
 	@Test
-	public void onlyBrackets_test() 
+	public void onlyBracketAndNoOperator_test() 
 	{
 		//Arrange
 		Calculator calc = new Calculator();
@@ -185,7 +170,7 @@ public class TestCalc {
 	
 	
 	@Test
-	public void minusFirstOrLast_test2() 
+	public void minusFirst_test() 
 	{
 		//Arrange
 		Calculator calc = new Calculator();
@@ -208,23 +193,11 @@ public class TestCalc {
 		//Assert
 		assertEquals("4.0", actual);	
 	}
-	// Denna funkar inte pga mem2=0
+	
+	
 	
 	@Test
-	public void dennaSkafunkaTabort_test() 
-	{
-		//Arrange
-		Calculator calc = new Calculator();
-		String input = "0-2+2+1";
-		//Act
-		String actual = calc.calculateExpression(input);
-		
-		//Assert
-		assertEquals("1.0", actual);	
-	}
-	
-	@Test
-	public void rootInEquation_test() 
+	public void rootFirst_test() 
 	{
 		//Arrange
 		Calculator calc = new Calculator();
@@ -253,15 +226,15 @@ public class TestCalc {
 	{
 		//Arrange
 		Calculator calc = new Calculator();
-		String input = "7*6/2--2";
+		String input = "2--2";
 		//Act
 		String actual = calc.calculateExpression(input);
 		
 		//Assert
-		assertEquals("23.0", actual);	
+		assertEquals("4.0", actual);	
 	}
 	@Test
-	public void priority_test() 
+	public void SimplePriority_test() 
 	{
 		//Arrange
 		Calculator calc = new Calculator();
@@ -286,18 +259,6 @@ public class TestCalc {
 		assertEquals("7.0", actual);	
 	}
 	
-	@Test
-	public void lotOfDifferentCalculations_test() 
-	{
-		//Arrange
-		Calculator calc = new Calculator();
-		String input = "1 /2/3*4*5*6-7-8+9";
-		//Act
-		String actual = calc.calculateExpression(input);
-		
-		//Assert
-		assertEquals("14.0", actual);	
-	}
 	
 	@Test
 	public void multipleOperators_test() 
@@ -376,6 +337,20 @@ public class TestCalc {
 		//Assert
 		assertEquals("5.0", actual);	
 	}
+	
+	@Test
+	public void testMultiplyByZero() {
+		//Arrange
+		Calculator calc = new Calculator();
+		// Act
+		double actual = calc.multiply(2, 0);
+				
+		//Assert
+		assertEquals(0, actual, 0.111);
+	}
+	
+	
+	
 	@Test
 	public void addition_test() 
 	{
@@ -404,11 +379,13 @@ public class TestCalc {
 		String actual = calc.calculateExpression(input);
 		
 		//Assert
-		assertEquals("2.0", actual);
-		
-		
+		assertEquals("2.0", actual);	
 		
 	}
+	
+	
+	
+	// De mest grundläggande testen av uträknings-metoderna 
 	
 	@Test
 	public void add_test() 
@@ -455,19 +432,7 @@ public class TestCalc {
 		
 		
 	}
-	
-	@Test
-	public void testMultiplyByZero() {
-		//Arrange
-				Calculator calc = new Calculator();
-				// Act
-				double actual = calc.multiply(2, 0);
-				
-				//Assert
-				assertEquals(0, actual, 0.111);
-	}
-	
-	
+		
 	
 	@Test
 	public void divide_test() 

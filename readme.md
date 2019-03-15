@@ -1,4 +1,5 @@
 # Miniräknare TDD 
+Av Stefan Sundström
 
 Syftet med labb 2 i testdriven utveckling är att med hjälp av JUnit skriva tester som ska stå som grund för implementerad funktionalitet - att expandera appen utifrån dessa.
 
@@ -366,4 +367,9 @@ Update list()
 }
 
 ```
+
+Sedan inser jag hur mycket felhantering som krävs för att få en kod som min att fungera felfritt, det finns fortfarande sätt att provocera fram tal som inte fungerar eller ger fel svar. 
+
+
+ 
 
