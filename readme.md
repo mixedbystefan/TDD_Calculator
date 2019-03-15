@@ -351,14 +351,14 @@ Så här i efterhand så tänker jag att det hade det varit lättare att överbl
 Psuedokod
 
 ```
-While (det finns en operand i listan)
+While (det finns en operator i listan)
 {
      for (i=0; i<listan.length; i++)
 
 		{
 			If (i == ”*”){ multiply() break;}
 			Else If (i == ”/”){ divide() break;}
-			Else if (..nästa operatör i prio)
+			Else if (..nästa operator i prio)
 			Else if..
 			
 		}
